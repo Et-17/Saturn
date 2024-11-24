@@ -1,9 +1,18 @@
 <script setup lang="ts">
+function get_ledger() {
+  window.storage.get_ledger();
+}
+
+function save_ledger() {
+  window.storage.save_ledger([], []);
+}
 </script>
 
 <template>
   <div id="main-block">
     <span id="recent-transactions-title">Recent Transactions</span>
+    <button @click="get_ledger">Get</button>
+    <button @click="save_ledger">Save</button>
   </div>
 </template>
 

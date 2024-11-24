@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -49,5 +49,14 @@ app.on('activate', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+// We can't directly interact with the file system in the window process, so
+// we instead pass a message to the main process to do it for us. For maximal
+// security, I'm only exposing the fully built ledger storage functions, rather
+// than expose all of fs.
+app.whenReady().then(() => {
+  ipcMain.handle("save_ledger", (_, accounts, counterparties) => console.log("ledger save requested", accounts, counterparties));
+  ipcMain.handle("get_ledger", () => {
+    console.log("get ledger requested");
+    return [[], []];
+  });
+})
