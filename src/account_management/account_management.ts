@@ -9,7 +9,6 @@ export type UUID = `${string}-${string}-${string}-${string}-${string}`;
 // list of counterparties.
 
 export interface Transaction {
-    account_id: UUID;
     counterparty_id: UUID;
     amount: number; // negative for payments, positive for deposits
     timestamp: Date;
@@ -33,3 +32,21 @@ export interface Counterparty {
 export let accounts: Account[];
 export let counterparties: Counterparty[];
 
+export function new_account(name: string, description?: string): Account {
+    return {
+        id: crypto.randomUUID(),
+        name,
+        description,
+        balance: 0,
+        transactions: [],
+        creation_timestamp: new Date()
+    }
+}
+
+export function new_counterparty(name: string, description?: string): Counterparty {
+    return {
+        id: crypto.randomUUID(),
+        name,
+        description
+    }
+}

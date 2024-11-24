@@ -1,5 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { load_ledger, save_ledger } from './account_management/storage';
 import path from 'path';
+
+const LEDGER_PATH = path.join(__dirname, "ledger.json");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -54,9 +57,7 @@ app.on('activate', () => {
 // security, I'm only exposing the fully built ledger storage functions, rather
 // than expose all of fs.
 app.whenReady().then(() => {
-  ipcMain.handle("save_ledger", (_, accounts, counterparties) => console.log("ledger save requested", accounts, counterparties));
-  ipcMain.handle("get_ledger", () => {
-    console.log("get ledger requested");
-    return [[], []];
-  });
+  ipcMain.handle("save_ledger", (_, accounts, counterparties) =>
+    save_ledger(LEDGER_PATH, accounts, counterparties));
+  ipcMain.handle("get_ledger", () => load_ledger(LEDGER_PATH));
 })
