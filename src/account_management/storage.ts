@@ -6,18 +6,18 @@ import fs from "node:fs/promises";
 // the functions in this file cannot be accessed directly. They get loaded
 // globally in preload.ts.
 
-export async function save_ledger(path: PathLike, accounts: Account[], counterparties: Counterparty[]): Promise<void> {
-    console.log("saving ledger");
+export async function write_ledger_file(path: PathLike, accounts: Account[], counterparties: Counterparty[]): Promise<void> {
+    console.log("saving ledger to", path);
     let json_string = JSON.stringify({ accounts, counterparties });
     return fs.writeFile(path, json_string, { encoding: "utf8" });
 }
 
-export async function load_ledger(path: PathLike): Promise<[Account[], Counterparty[]]> {
-    console.log("loading ledger");
+export async function read_ledger_file(path: PathLike): Promise<[Account[], Counterparty[]]> {
+    console.log("loading ledger from", path);
 
     // Check if a ledger file exists
     if (!fs.access(path)) {
-        await save_ledger(path, [], []); // Instantiate empty ledger
+        await write_ledger_file(path, [], []); // Instantiate empty ledger
     }
 
     let json_string = await fs.readFile(path, { encoding: "utf8" });

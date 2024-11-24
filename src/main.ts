@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { load_ledger, save_ledger } from './account_management/storage';
+import { read_ledger_file, write_ledger_file } from './account_management/storage';
 import path from 'path';
 
 const LEDGER_PATH = path.join(__dirname, "ledger.json");
@@ -57,7 +57,7 @@ app.on('activate', () => {
 // security, I'm only exposing the fully built ledger storage functions, rather
 // than expose all of fs.
 app.whenReady().then(() => {
-  ipcMain.handle("save_ledger", (_, accounts, counterparties) =>
-    save_ledger(LEDGER_PATH, accounts, counterparties));
-  ipcMain.handle("get_ledger", () => load_ledger(LEDGER_PATH));
+  ipcMain.handle("write_ledger_file", (_, accounts, counterparties) =>
+    write_ledger_file(LEDGER_PATH, accounts, counterparties));
+  ipcMain.handle("read_ledger_file", () => read_ledger_file(LEDGER_PATH));
 })
