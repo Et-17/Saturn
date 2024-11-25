@@ -70,3 +70,17 @@ export async function load_ledger(): Promise<void> {
 export async function save_ledger(): Promise<void> {
     return window.storage.write_ledger_file(toRaw(accounts.value), toRaw(counterparties.value));
 }
+
+// This looks up the index of the account with the given uuid in accounts
+export function lookup_account_id(id: UUID): number {
+    let index = accounts.value.findIndex((account) => account.id == id);
+
+    if (index == -1) {
+        throw new Error("No accounts exists with uuid " + id);
+    }
+
+    return index;
+}
+
+export const get_account_name = (id: UUID): string =>
+    accounts.value[lookup_account_id(id)].name;
