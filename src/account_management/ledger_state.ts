@@ -33,7 +33,7 @@ export const transactions: Ref<UUIDMap<Transaction>> = ref(new Map());
 export const accounts: Ref<UUIDMap<Account>> = ref(new Map());
 export const counterparties: Ref<UUIDMap<Counterparty>> = ref(new Map());
 
-export async function new_transaction(account_id: UUID, counterparty_id: UUID, amount: number, timestamp?: Date): Promise<void> {
+export async function new_transaction(account_id: UUID, counterparty_id: UUID, amount: number, timestamp?: Date): Promise<UUID> {
     let new_uuid = crypto.randomUUID();
 
     if (!accounts.value.has(account_id)) {
@@ -51,22 +51,28 @@ export async function new_transaction(account_id: UUID, counterparty_id: UUID, a
         amount,
         timestamp: timestamp ?? new Date()
     });
+
+    return new_uuid;
 }
 
-export async function new_account(name: string, description?: string, creation_timestamp?: Date): Promise<void> {
-    accounts.value.set(crypto.randomUUID(), {
+export async function new_account(name: string, description?: string, creation_timestamp?: Date): Promise<UUID> {
+    let new_uuid = crypto.randomUUID();
+    accounts.value.set(new_uuid, {
         name,
         description,
         balance: 0,
         transactions: [],
         creation_timestamp: creation_timestamp ?? new Date
     });
+    return new_uuid;
 }
 
-export async function new_counterparty(name: string, description?: string): Promise<void> {
-    counterparties.value.set(crypto.randomUUID(), {
+export async function new_counterparty(name: string, description?: string): Promise<UUID> {
+    let new_uuid = crypto.randomUUID();
+    counterparties.value.set(new_uuid, {
         name,
         description,
         transactions: []
     });
+    return new_uuid;
 }
