@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RecentTransactions from "./RecentTransactions.vue";
+import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
 </script>
 
 <template>
