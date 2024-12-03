@@ -7,9 +7,6 @@ import fs from "node:fs/promises";
 // preload.ts. Look at ../interface.d.ts for more info.
 
 export async function write_ledger_file(path: PathLike, accounts: UUIDMap<Account>, counterparties: UUIDMap<Counterparty>, transactions: UUIDMap<Transaction>): Promise<void> {
-    console.log("saving ledger to", path);
-    console.log(accounts);
-    console.log(JSON.stringify(accounts));
     // I add the ledger_ thing to prevent some name conflicts in the reviver. I
     // should resolve the name conflicts by checking "this" but whatever.
     let ledger = {
