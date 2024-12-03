@@ -1,23 +1,35 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { load_ledger, save_ledger, accounts, Account, Transaction, UUID, get_account_name } from '../account_management/account_management';
+// import { computed } from 'vue';
+import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from '../account_management/ledger_state';
+import { load_ledger, save_ledger, } from '../account_management/ledger_state';
 
-type TransactionRecord = {
-  account_id: UUID,
-  transaction: Transaction
+const currency_formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  trailingZeroDisplay: "stripIfInteger"
+});
+
+async function setup_example_ledger() {
+  let checking = await new_account(
+    "Checking",
+    "My checking account",
+    new Date(Date.now() - (35 * 60)),
+  );
+  let savings = await new_account(
+    "Savings",
+    "My savings account",
+    new Date(Date.now() - (45 * 60))
+  );
+
+  let employer = await new_counterparty("Lakewood High School", "My employer");
+  let walmart = await new_counterparty("Walmart", "Multinational supermarket chain");
+
+  new_transaction(checking, employer, 200, new Date(Date.now() - (10 * 60)));
+  new_transaction(checking, walmart, -100, new Date(Date() + (20 * 60)));
+  new_transaction(savings, employer, 50, new Date(Date.now() + (60 * 60)));
 }
 
-// Return a flat array of all transactions and their account id
-const collect_transactions = (accs: Account[]): TransactionRecord[] =>
-  accs.flatMap((acc) => acc.transactions.map((tra) => ({ account_id: acc.id, transaction: tra })));
-
-// Sorts an array of transactions
-const sort_transactions = (trns: TransactionRecord[]): TransactionRecord[] =>
-  trns.sort((a, b) => b.transaction.timestamp.getTime() - a.transaction.timestamp.getTime());
-
-const flat_transactions = computed(
-  () => sort_transactions(collect_transactions(accounts.value))
-);
+setup_example_ledger().then(() => console.log(transactions.value, accounts.value, counterparties.value));
 </script>
 
 <template>
@@ -35,11 +47,11 @@ const flat_transactions = computed(
         </tr>
       </thead>
       <tbody>
-        <tr v-for="transaction in flat_transactions">
-          <th>{{ get_account_name(transaction.account_id) }}</th>
-          <th>{{ transaction.transaction.counterparty_id }}</th>
-          <th>{{ transaction.transaction.amount }}</th>
-          <th>{{ transaction.transaction.timestamp }}</th>
+        <tr v-for="transaction of transactions">
+          <th>{{ accounts.get(transaction[1].account_id).name }}</th>
+          <th>{{ counterparties.get(transaction[1].counterparty_id).name }}</th>
+          <th>{{ currency_formatter.format(transaction[1].amount) }}</th>
+          <th>{{ transaction[1].timestamp.toISOString() }}</th>
         </tr>
       </tbody>
     </table>

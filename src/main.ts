@@ -1,8 +1,14 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { read_ledger_file, write_ledger_file } from './account_management/storage';
+import { read_ledger_file, write_ledger_file } from './account_management/ledger_storage';
 import path from 'path';
 
-const LEDGER_PATH = path.join(__dirname, "ledger.json");
+// If we're in production, we want to tuck the ledger file safely along with the
+// rest of the program files. However, in development, it will get deleted
+// after every build/run and it's inconvient to view in the IDE. So, in that
+// case, we store it in the directory that you run Saturn from.
+const LEDGER_FILE_NAME = "ledger.json";
+const LEDGER_PATH = process.env.NODE_ENV == "development" ?
+  LEDGER_FILE_NAME : path.join(__dirname, LEDGER_FILE_NAME);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -57,7 +63,7 @@ app.on('activate', () => {
 // security, I'm only exposing the fully built ledger storage functions, rather
 // than expose all of fs.
 app.whenReady().then(() => {
-  ipcMain.handle("write_ledger_file", (_, accounts, counterparties) =>
-    write_ledger_file(LEDGER_PATH, accounts, counterparties));
+  ipcMain.handle("write_ledger_file", (_, accounts, counterparties, transactions) =>
+    write_ledger_file(LEDGER_PATH, accounts, counterparties, transactions));
   ipcMain.handle("read_ledger_file", () => read_ledger_file(LEDGER_PATH));
 })
