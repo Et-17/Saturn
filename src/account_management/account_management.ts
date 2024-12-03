@@ -68,7 +68,7 @@ export async function load_ledger(): Promise<void> {
 }
 
 export async function save_ledger(): Promise<void> {
-    return window.storage.write_ledger_file(toRaw(accounts.value), toRaw(counterparties.value));
+    // return window.storage.write_ledger_file(toRaw(accounts.value), toRaw(counterparties.value));
 }
 
 // This looks up the index of the account with the given uuid in accounts

@@ -1,7 +1,7 @@
 // We're storing ledgers as three hashmaps that use uuids as keys: transactions,
 // accounts, and counterparties.
 
-import { ref, Ref } from "vue";
+import { ref, Ref, toRaw } from "vue";
 
 // This is the return type of crypto.randomUUID()
 export type UUID = `${string}-${string}-${string}-${string}-${string}`;
@@ -75,4 +75,15 @@ export async function new_counterparty(name: string, description?: string): Prom
         transactions: []
     });
     return new_uuid;
+}
+
+export async function load_ledger(): Promise<void> {
+    let ledger = await window.storage.read_ledger_file();
+    accounts.value = ledger[0];
+    counterparties.value = ledger[1];
+    transactions.value = ledger[2];
+}
+
+export async function save_ledger(): Promise<void> {
+    return window.storage.write_ledger_file(toRaw(accounts.value), toRaw(counterparties.value), toRaw(transactions.value));
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { computed } from 'vue';
-import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions, UUID } from '../account_management/ledger_state';
-import { load_ledger, save_ledger, get_account_name, } from '../account_management/account_management';
+import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from '../account_management/ledger_state';
+import { load_ledger, save_ledger, } from '../account_management/ledger_state';
 
 const currency_formatter = new Intl.NumberFormat("en-US", {
   style: "currency",

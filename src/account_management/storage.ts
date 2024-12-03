@@ -7,7 +7,7 @@ import fs from "node:fs/promises";
 // globally in preload.ts.
 
 export async function write_ledger_file(path: PathLike, accounts: Account[], counterparties: Counterparty[]): Promise<void> {
-    console.log("saving ledger to", path);
+    console.log("saving ledger to", path, "(deprecated method)");
     let json_string = JSON.stringify({ accounts, counterparties });
     return fs.writeFile(path, json_string, { encoding: "utf8" });
 }
@@ -43,7 +43,7 @@ function des_account(account: RawAccount): Account {
 }
 
 export async function read_ledger_file(path: PathLike): Promise<[Account[], Counterparty[]]> {
-    console.log("loading ledger from", path);
+    console.log("loading ledger from", path, "(deprecated method)");
 
     let json_string: string;
     try {
