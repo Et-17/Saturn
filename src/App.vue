@@ -1,5 +1,28 @@
 <script setup lang="ts">
 import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
+import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from './account_management/ledger_state';
+
+async function setup_example_ledger() {
+    let checking = await new_account(
+        "Checking",
+        "My checking account",
+        new Date(Date.now() - (35 * 60)),
+    );
+    let savings = await new_account(
+        "Savings",
+        "My savings account",
+        new Date(Date.now() - (45 * 60))
+    );
+
+    let employer = await new_counterparty("Lakewood High School", "My employer");
+    let walmart = await new_counterparty("Walmart", "Multinational supermarket chain");
+
+    new_transaction(checking, employer, 200, new Date(Date.now() - (10 * 60)));
+    new_transaction(checking, walmart, -100, new Date(Date() + (20 * 60)));
+    new_transaction(savings, employer, 50, new Date(Date.now() + (60 * 60)));
+}
+
+setup_example_ledger().then(() => console.log(transactions.value, accounts.value, counterparties.value));
 </script>
 
 <template>
@@ -7,9 +30,6 @@ import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
 </template>
 
 <style lang="scss">
-// title font
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-
 * {
     box-sizing: border-box;
 }
