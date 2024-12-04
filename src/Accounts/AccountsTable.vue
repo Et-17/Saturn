@@ -20,8 +20,10 @@ const emit = defineEmits<{
     </thead>
     <tbody>
       <tr v-for="account of accounts">
-        <td class="account-name" @click="$emit('openAccount', account[0])">
-          {{ account[1].name }}
+        <td @click="$emit('openAccount', account[0])">
+          <span class="account-name">
+            {{ account[1].name }}
+          </span>
         </td>
         <td class="amount">{{ format_currency(account[1].balance) }}</td>
         <td class="amount">{{ account[1].transactions.length }}</td>

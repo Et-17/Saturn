@@ -13,12 +13,8 @@ const currently_viewing: Ref<UUID | null> = ref(null);
       <span id="accounts-title">Accounts</span>
       <span id="back-button" @click="currently_viewing = null">Back</span>
     </div>
-    <Transition name="page-switch">
-      <div>
-        <AccountsTable v-if="currently_viewing == null" @open-account="(uuid: UUID) => currently_viewing = uuid" />
-        <AccountView v-if="currently_viewing != null" :account_uuid="currently_viewing"></AccountView>
-      </div>
-    </Transition>
+    <AccountsTable v-if="currently_viewing == null" @open-account="(uuid: UUID) => currently_viewing = uuid" />
+    <AccountView v-if="currently_viewing != null" :account_uuid="currently_viewing"></AccountView>
   </div>
 </template>
 
@@ -26,7 +22,8 @@ const currently_viewing: Ref<UUID | null> = ref(null);
 @use "../style_atoms.scss";
 
 #accounts {
-  max-width: fit-content;
+  max-width: 40%;
+  min-width: fit-content;
   margin-top: var(--outer-gutter);
   margin-left: auto;
   margin-right: auto;

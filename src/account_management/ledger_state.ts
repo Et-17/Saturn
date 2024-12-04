@@ -45,7 +45,7 @@ export async function new_transaction(account_id: UUID, counterparty_id: UUID, a
     accounts.value.get(account_id).transactions.push(new_uuid);
     counterparties.value.get(counterparty_id).transactions.push(new_uuid);
 
-    transactions.value.set(crypto.randomUUID(), {
+    transactions.value.set(new_uuid, {
         account_id,
         counterparty_id,
         amount,

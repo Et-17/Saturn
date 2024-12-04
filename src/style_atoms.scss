@@ -13,16 +13,37 @@
     line-height: 250%;
 }
 
-// Yes yes ik, !important is quite a sin, especially with scss. It's just
-// temporary while i work on more important things.
+%information {
+    @extend %ibm-plex-serif;
+    line-height: 125%;
+    font-size: 1.25em;
+}
+
+%information-header {
+    @extend %information;
+    font-weight: 400;
+}
+
 %clickable:hover {
-    font-weight: 400 !important;
     text-decoration: underline;
+    text-decoration-color: rgb(30, 30, 30);
+    text-decoration-thickness: 10%;
+}
+
+%clickable {
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+        text-decoration-color: rgb(30, 30, 30);
+        text-decoration-thickness: 10%;
+    }
 }
 
 %card-table {
     margin-left: auto;
     margin-right: auto;
+    width: 90%;
 
     thead tr {
         line-height: 200%;
