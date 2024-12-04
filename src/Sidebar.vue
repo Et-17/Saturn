@@ -1,12 +1,13 @@
 <script setup lang="tsx">
 const emit = defineEmits<{
-  switchPage: [newPage: "recent-transactions" | "accounts"]
+  switchPage: [newPage: "recent-transactions" | "accounts" | "counterparties"]
 }>();
 
 // This stores the buttons in the format of [event code, text]
-const buttons: ["recent-transactions" | "accounts", string][] = [
+const buttons: ["recent-transactions" | "accounts" | "counterparties", string][] = [
   ["recent-transactions", "Recent Transactions"],
-  ["accounts", "Accounts"]
+  ["accounts", "Accounts"],
+  ["counterparties", "Counterparties"]
 ]
 </script>
 
