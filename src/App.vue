@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ref, Ref } from "vue";
 import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
 import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from './account_management/ledger_state';
+import Accounts from "./Accounts/Accounts.vue";
 
 async function setup_example_ledger() {
     let checking = await new_account(
@@ -26,7 +28,7 @@ setup_example_ledger().then(() => console.log(transactions.value, accounts.value
 </script>
 
 <template>
-    <RecentTransactions />
+    <Accounts />
 </template>
 
 <style lang="scss">
@@ -39,6 +41,17 @@ setup_example_ledger().then(() => console.log(transactions.value, accounts.value
     --outer-gutter: 40px;
     --inner-gutter: 20px;
     color: rgb(30, 30, 30);
+}
+
+// Page and subpage switch transitions
+.page-switch-enter-active,
+.page-switch-leave-active {
+    transition: opacity 0.25s;
+}
+
+.page-switch-enter-from,
+.page-switch-leave-to {
+    opacity: 0;
 }
 </style>
 

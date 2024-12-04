@@ -10,6 +10,14 @@
     @extend %ibm-plex-serif;
     font-weight: 600;
     font-size: 2em;
+    line-height: 250%;
+}
+
+// Yes yes ik, !important is quite a sin, especially with scss. It's just
+// temporary while i work on more important things.
+%clickable:hover {
+    font-weight: 400 !important;
+    text-decoration: underline;
 }
 
 %card-table {
@@ -21,7 +29,6 @@
     }
 
     thead th {
-        @extend %ibm-plex-serif;
         font-weight: 500;
         font-size: 1.25em;
     }
@@ -30,7 +37,8 @@
         line-height: 175%;
     }
 
-    tbody td {
+    th,
+    td {
         @extend %ibm-plex-serif;
         padding-left: 10px;
         padding-right: 10px;
