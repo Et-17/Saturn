@@ -17,7 +17,8 @@ import RecentTransactionTable from "./RecentTransactionTable.vue";
 @use "../style_atoms.scss";
 
 #main-block {
-  max-width: fit-content;
+  max-width: 40%;
+  min-width: fit-content;
   margin-top: var(--outer-gutter);
   margin-left: auto;
   margin-right: auto;
@@ -26,7 +27,5 @@ import RecentTransactionTable from "./RecentTransactionTable.vue";
 
 #recent-transactions-title {
   @extend %header;
-  font-size: 1.5rem;
-  display: block;
 }
 </style>

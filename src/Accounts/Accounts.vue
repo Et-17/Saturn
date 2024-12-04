@@ -11,7 +11,7 @@ const currently_viewing: Ref<UUID | null> = ref(null);
   <div id="accounts">
     <div id="accounts-top-bar">
       <span id="accounts-title">Accounts</span>
-      <span id="back-button" @click="currently_viewing = null">Back</span>
+      <span v-if="currently_viewing != null" id="back-button" @click="currently_viewing = null">Back</span>
     </div>
     <AccountsTable v-if="currently_viewing == null" @open-account="(uuid: UUID) => currently_viewing = uuid" />
     <AccountView v-if="currently_viewing != null" :account_uuid="currently_viewing"></AccountView>
