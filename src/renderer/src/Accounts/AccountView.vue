@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { format_currency } from '../readout_formatting/money';
 import { format_date } from '../readout_formatting/date';
-import { accounts, counterparties, Transaction, transactions, UUID } from '../account_management/ledger_state';
+import { UUID, get_transaction, get_account, get_counterparty } from '../account_management/ledger_state';
 import { computed } from 'vue';
 
 const props = defineProps<{
   account_uuid: UUID;
 }>();
 
-function get_transaction(uuid: UUID): Transaction {
-  return transactions.value.get(uuid);
-}
-
-const account = computed(() => accounts.value.get(props.account_uuid));
+const account = computed(() => get_account(props.account_uuid))
 </script>
 
 <template>
@@ -34,8 +30,8 @@ const account = computed(() => accounts.value.get(props.account_uuid));
       </tr>
     </thead>
     <tbody>
-      <tr v-for="transaction of account.transactions">
-        <td>{{ counterparties.get(get_transaction(transaction).counterparty_id).name }}</td>
+      <tr v-if="account != null" v-for="transaction of account.transactions">
+        <td>{{ get_counterparty(get_transaction(transaction).counterparty_id).name }}</td>
         <td class="account-transaction-amount">{{ format_currency(get_transaction(transaction).amount) }}</td>
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
       </tr>

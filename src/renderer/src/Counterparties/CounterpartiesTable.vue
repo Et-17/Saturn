@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { counterparties, Counterparty, transactions, UUID } from '../account_management/ledger_state';
+import { counterparties, Counterparty, get_transaction, UUID } from '../account_management/ledger_state';
 import { format_date } from '../readout_formatting/date';
 
 function get_last_transaction_time(counterparty: Counterparty) {
   let lastIndex = counterparty.transactions.length;
   let lastTransactionUUID = counterparty.transactions[lastIndex - 1];
-  return transactions.value.get(lastTransactionUUID).timestamp;
+  return get_transaction(lastTransactionUUID).timestamp;
 }
 
 const emit = defineEmits<{

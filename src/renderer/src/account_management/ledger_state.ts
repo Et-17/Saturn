@@ -33,6 +33,31 @@ export const transactions: Ref<UUIDMap<Transaction>> = ref(new Map());
 export const accounts: Ref<UUIDMap<Account>> = ref(new Map());
 export const counterparties: Ref<UUIDMap<Counterparty>> = ref(new Map());
 
+export function get_transaction(uuid: UUID): Transaction {
+    let transaction = transactions.value.get(uuid);
+    if (transaction == undefined) {
+        throw `Could not find transaction ${uuid}`;
+    }
+    return transaction;
+}
+
+export function get_account(uuid: UUID): Account {
+    let account = accounts.value.get(uuid);
+    if (account == undefined) {
+        throw `Could not find account ${uuid}`;
+    }
+    return account;
+}
+
+export function get_counterparty(uuid: UUID): Counterparty {
+    let counterparty = counterparties.value.get(uuid);
+    if (counterparty == undefined) {
+        throw `Could not find counterparty ${uuid}`;
+    }
+    return counterparty;
+}
+
+
 export async function new_transaction(account_id: UUID, counterparty_id: UUID, amount: number, timestamp?: Date): Promise<UUID> {
     let new_uuid = crypto.randomUUID();
 
@@ -42,8 +67,8 @@ export async function new_transaction(account_id: UUID, counterparty_id: UUID, a
     if (!counterparties.value.has(counterparty_id)) {
         throw new Error(`Counterparty id ${counterparty_id} does not exist`);
     }
-    accounts.value.get(account_id).transactions.push(new_uuid);
-    counterparties.value.get(counterparty_id).transactions.push(new_uuid);
+    get_account(account_id).transactions.push(new_uuid);
+    get_counterparty(counterparty_id).transactions.push(new_uuid);
 
     transactions.value.set(new_uuid, {
         account_id,

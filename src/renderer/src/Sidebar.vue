@@ -25,8 +25,6 @@ const buttons: ["recent-transactions" | "accounts" | "counterparties", string][]
 
 #sidebar {
   position: fixed;
-  // left: var(--outer-gutter);
-  // top: var(--outer-gutter);
   inset-block-start: var(--outer-gutter);
   inset-inline-start: var(--outer-gutter);
 }

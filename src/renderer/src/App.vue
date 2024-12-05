@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref } from "vue";
 import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
 import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from './account_management/ledger_state';
 import Accounts from "./Accounts/Accounts.vue";
@@ -28,7 +28,7 @@ async function setup_example_ledger() {
 
 setup_example_ledger().then(() => console.log(transactions.value, accounts.value, counterparties.value));
 
-const current_page: Ref<"recent-transactions" | "accounts" | "counterparties"> = ref("recent-transactions");
+const current_page = ref("recent-transactions");
 </script>
 
 <template>
