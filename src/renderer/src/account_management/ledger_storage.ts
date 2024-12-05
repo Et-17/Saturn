@@ -44,10 +44,10 @@ function des_reviver(key: string, value: [UUID, any][]): any {
 export async function read_ledger_file(path: PathLike): Promise<[UUIDMap<Account>, UUIDMap<Counterparty>, UUIDMap<Transaction>]> {
     console.log("loading ledger from", path);
 
-    let json_string: string;
+    let json_string: string = "";
     try {
         json_string = await fs.readFile(path, { encoding: "utf8" });
-    } catch (error) {
+    } catch (error: any) {
         if (error.code = "ENOENT") {
             // Ledger file doesn't exist, create it
             await write_ledger_file(path, new Map(), new Map(), new Map());

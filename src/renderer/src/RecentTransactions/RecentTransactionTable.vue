@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from '../account_management/ledger_state';
+import { get_account, get_counterparty, transactions } from '../account_management/ledger_state';
 import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
 </script>
@@ -16,8 +16,8 @@ import { format_date } from '../readout_formatting/date';
     </thead>
     <tbody>
       <tr v-for="transaction of transactions">
-        <td>{{ accounts.get(transaction[1].account_id).name }}</td>
-        <td>{{ counterparties.get(transaction[1].counterparty_id).name }}</td>
+        <td>{{ get_account(transaction[1].account_id).name }}</td>
+        <td>{{ get_counterparty(transaction[1].counterparty_id).name }}</td>
         <td class="amount">{{ format_currency(transaction[1].amount) }}</td>
         <td>{{ format_date(transaction[1].timestamp) }}</td>
       </tr>

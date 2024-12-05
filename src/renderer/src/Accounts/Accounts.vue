@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UUID } from 'src/account_management/ledger_state';
+import { UUID } from '../account_management/ledger_state';
 import AccountsTable from './AccountsTable.vue';
 import { ref, Ref } from 'vue';
 import AccountView from './AccountView.vue';
