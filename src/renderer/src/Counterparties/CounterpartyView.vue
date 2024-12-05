@@ -37,8 +37,6 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
 </template>
 
 <style lang="scss">
-@use "../style_atoms.scss";
-
 .counterparty-view-info-header {
   @extend %information-header;
 }

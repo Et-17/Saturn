@@ -19,7 +19,9 @@ export default defineConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler'
+          api: 'modern-compiler',
+          loadPaths: ['src/renderer/src/styling'],
+          additionalData: '@use "styling.scss";'
         }
       }
     }

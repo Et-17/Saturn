@@ -2,6 +2,7 @@
 import { get_account, get_counterparty, transactions } from '../account_management/ledger_state';
 import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
+
 </script>
 
 <template>
@@ -26,8 +27,6 @@ import { format_date } from '../readout_formatting/date';
 </template>
 
 <style lang="scss">
-@use "../style_atoms.scss";
-
 #recent-transaction-table {
   @extend %card-table;
 }

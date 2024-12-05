@@ -21,8 +21,6 @@ const currently_viewing: Ref<UUID | null> = ref(null)
 </template>
 
 <style lang="scss">
-@use '../style_atoms.scss';
-
 #accounts {
   max-width: 40%;
   min-width: fit-content;

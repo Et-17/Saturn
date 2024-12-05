@@ -14,8 +14,6 @@ import RecentTransactionTable from "./RecentTransactionTable.vue";
 </template>
 
 <style lang="scss">
-@use "../style_atoms.scss";
-
 #main-block {
   max-width: 40%;
   min-width: fit-content;

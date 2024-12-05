@@ -40,8 +40,6 @@ const account = computed(() => get_account(props.account_uuid))
 </template>
 
 <style lang="scss">
-@use "../style_atoms.scss";
-
 #account-view {
   max-width: fit-content;
   margin-top: var(--outer-gutter);

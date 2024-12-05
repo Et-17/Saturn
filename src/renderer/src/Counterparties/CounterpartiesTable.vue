@@ -37,8 +37,6 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@use "../style_atoms.scss";
-
 #counterparty-table {
   @extend %card-table;
 }

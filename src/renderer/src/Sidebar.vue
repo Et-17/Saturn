@@ -21,8 +21,6 @@ const buttons: ["recent-transactions" | "accounts" | "counterparties", string][]
 </template>
 
 <style lang="scss">
-@use "style_atoms.scss";
-
 #sidebar {
   position: fixed;
   inset-block-start: var(--outer-gutter);
