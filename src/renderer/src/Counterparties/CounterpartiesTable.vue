@@ -14,7 +14,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <table id="counterparty-table">
+  <table>
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -37,10 +37,6 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-#counterparty-table {
-  @extend %card-table;
-}
-
 .transaction-count {
   @extend %currency-cell;
 }

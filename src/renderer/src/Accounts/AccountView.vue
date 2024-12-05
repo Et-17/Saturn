@@ -49,7 +49,6 @@ const account = computed(() => get_account(props.account_uuid))
 }
 
 #account-view-transaction-table {
-  @extend %card-table;
   margin-top: 1.5em;
 }
 

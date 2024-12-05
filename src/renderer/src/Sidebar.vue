@@ -29,7 +29,7 @@ const buttons: ["recent-transactions" | "accounts" | "counterparties", string][]
 
 .sidebar-button {
   @extend %clickable;
-  @extend %ibm-plex-serif;
+  @extend .ibm-plex-serif;
   font-weight: 500;
   font-size: 1.5em;
 }

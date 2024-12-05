@@ -9,7 +9,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <table id="account-table">
+  <table>
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -34,10 +34,6 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-#account-table {
-  @extend %card-table;
-}
-
 .amount {
   @extend %currency-cell;
 }

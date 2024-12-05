@@ -6,7 +6,7 @@ import { format_date } from '../readout_formatting/date';
 </script>
 
 <template>
-  <table id="recent-transaction-table">
+  <table>
     <thead>
       <tr>
         <th scope="col">Account</th>
@@ -27,10 +27,6 @@ import { format_date } from '../readout_formatting/date';
 </template>
 
 <style lang="scss">
-#recent-transaction-table {
-  @extend %card-table;
-}
-
 .amount {
   @extend %currency-cell;
 }

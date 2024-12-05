@@ -46,7 +46,6 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
 }
 
 #counterparty-view-transaction-table {
-  @extend %card-table;
   margin-top: 1.5em;
 }
 

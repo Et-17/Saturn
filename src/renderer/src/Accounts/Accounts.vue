@@ -41,7 +41,7 @@ const currently_viewing: Ref<UUID | null> = ref(null)
 
 #back-button {
   @extend %clickable;
-  @extend %ibm-plex-serif;
+  @extend .ibm-plex-serif;
   font-size: 1.5em;
   align-self: center;
 }
