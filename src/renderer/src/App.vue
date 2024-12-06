@@ -3,7 +3,7 @@ import { ref } from "vue";
 import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
 import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from './account_management/ledger_state';
 import Accounts from "./Accounts/Accounts.vue";
-import Sidebar from "./Sidebar.vue";
+import Sidebar from "./Sidebar/Sidebar.vue";
 import Counterparties from "./Counterparties/Counterparties.vue";
 
 async function setup_example_ledger() {
@@ -35,5 +35,5 @@ const current_page = ref("recent-transactions");
     <RecentTransactions v-if="current_page == 'recent-transactions'" />
     <Accounts v-if="current_page == 'accounts'" />
     <Counterparties v-if="current_page == 'counterparties'" />
-    <Sidebar @switch-page="(newPage) => current_page = newPage" />
+    <Sidebar v-model:current="current_page" />
 </template>

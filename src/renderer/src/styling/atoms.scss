@@ -1,8 +1,7 @@
 @use "fonts.scss";
 
 .page {
-    max-width: 40%;
-    min-width: fit-content;
+    width: 40%;
     margin-top: var(--outer-gutter);
     margin-left: auto;
     margin-right: auto;
