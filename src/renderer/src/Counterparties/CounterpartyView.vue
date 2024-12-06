@@ -12,11 +12,11 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
 </script>
 
 <template>
-  <span class="counterparty-view-info-header">Counterparty: </span>
-  <span class="counterparty-view-info">{{ counterparty.name }}</span>
+  <span class="information-header">Counterparty: </span>
+  <span class="information">{{ counterparty.name }}</span>
   <br>
-  <span class="counterparty-view-info-header">Description: </span>
-  <span class="counterparty-view-info">{{ counterparty.description ?? "None" }}</span>
+  <span class="information-header">Description: </span>
+  <span class="information">{{ counterparty.description ?? "None" }}</span>
   <br>
   <table id="counterparty-view-transaction-table">
     <thead>
@@ -29,7 +29,7 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
     <tbody>
       <tr v-for="transaction of counterparty.transactions">
         <td>{{ get_account(get_transaction(transaction).account_id).name }}</td>
-        <td class="counterparty-transaction-amount">{{ format_currency(get_transaction(transaction).amount) }}</td>
+        <td class="align-right">{{ format_currency(get_transaction(transaction).amount) }}</td>
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
       </tr>
     </tbody>
@@ -37,19 +37,7 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
 </template>
 
 <style lang="scss">
-.counterparty-view-info-header {
-  @extend %information-header;
-}
-
-.counterparty-view-info {
-  @extend %information;
-}
-
 #counterparty-view-transaction-table {
   margin-top: 1.5em;
-}
-
-.counterparty-transaction-amount {
-  @extend %currency-cell;
 }
 </style>

@@ -37,37 +37,3 @@ const current_page = ref("recent-transactions");
     <Counterparties v-if="current_page == 'counterparties'" />
     <Sidebar @switch-page="(newPage) => current_page = newPage" />
 </template>
-
-<style lang="scss">
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    --palette-background: #E0C87E;
-    --outer-gutter: 40px;
-    --inner-gutter: 20px;
-    color: rgb(30, 30, 30);
-}
-
-// Page and subpage switch transitions
-.page-switch-enter-active,
-.page-switch-leave-active {
-    transition: opacity 0.25s;
-}
-
-.page-switch-enter-from,
-.page-switch-leave-to {
-    opacity: 0;
-}
-</style>
-
-<!--
-COLORS:
-#E0BC7E
-#E0D47E
-#E0C87E Background (analogous center)
-#E0AD7E
-#E0E07E
-#E0DAC8 (lighter varient)
--->

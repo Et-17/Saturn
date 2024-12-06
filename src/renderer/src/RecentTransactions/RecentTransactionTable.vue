@@ -19,15 +19,11 @@ import { format_date } from '../readout_formatting/date';
       <tr v-for="transaction of transactions">
         <td>{{ get_account(transaction[1].account_id).name }}</td>
         <td>{{ get_counterparty(transaction[1].counterparty_id).name }}</td>
-        <td class="amount">{{ format_currency(transaction[1].amount) }}</td>
+        <td class="align-right">{{ format_currency(transaction[1].amount) }}</td>
         <td>{{ format_date(transaction[1].timestamp) }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
-<style lang="scss">
-.amount {
-  @extend %currency-cell;
-}
-</style>
+<style lang="scss"></style>

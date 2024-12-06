@@ -8,10 +8,10 @@ const currently_viewing: Ref<UUID | null> = ref(null)
 </script>
 
 <template>
-  <div id="accounts">
-    <div id="accounts-top-bar">
-      <span id="accounts-title"> Accounts </span>
-      <span v-if="currently_viewing != null" id="back-button" @click="currently_viewing = null">
+  <div class="page">
+    <div class="page-top-bar">
+      <span class="header"> Accounts </span>
+      <span v-if="currently_viewing != null" class="back-button" @click="currently_viewing = null">
         Back
       </span>
     </div>
@@ -19,30 +19,3 @@ const currently_viewing: Ref<UUID | null> = ref(null)
     <AccountView v-if="currently_viewing != null" :account_uuid="currently_viewing" />
   </div>
 </template>
-
-<style lang="scss">
-#accounts {
-  max-width: 40%;
-  min-width: fit-content;
-  margin-top: var(--outer-gutter);
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
-}
-
-#accounts-top-bar {
-  display: flex;
-  justify-content: space-between;
-}
-
-#accounts-title {
-  @extend %header;
-}
-
-#back-button {
-  @extend %clickable;
-  @extend .ibm-plex-serif;
-  font-size: 1.5em;
-  align-self: center;
-}
-</style>
