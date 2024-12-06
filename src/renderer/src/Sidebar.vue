@@ -21,8 +21,6 @@ const buttons: ["recent-transactions" | "accounts" | "counterparties", string][]
 </template>
 
 <style lang="scss">
-@use "style_atoms.scss";
-
 #sidebar {
   position: fixed;
   inset-block-start: var(--outer-gutter);
@@ -30,8 +28,8 @@ const buttons: ["recent-transactions" | "accounts" | "counterparties", string][]
 }
 
 .sidebar-button {
-  @extend %clickable;
-  @extend %ibm-plex-serif;
+  @extend .clickable;
+  @extend .ibm-plex-serif;
   font-weight: 500;
   font-size: 1.5em;
 }

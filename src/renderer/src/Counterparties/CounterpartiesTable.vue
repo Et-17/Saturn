@@ -14,7 +14,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <table id="counterparty-table">
+  <table>
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -25,29 +25,15 @@ const emit = defineEmits<{
     <tbody>
       <tr v-for="counterparty of counterparties">
         <td @click="$emit('openCounterparty', counterparty[0])">
-          <span class="counterparty-name">
+          <span class="clickable">
             {{ counterparty[1].name }}
           </span>
         </td>
-        <td class="transaction-count">{{ counterparty[1].transactions.length }}</td>
+        <td class="align-right">{{ counterparty[1].transactions.length }}</td>
         <td>{{ format_date(get_last_transaction_time(counterparty[1])) }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
-<style lang="scss">
-@use "../style_atoms.scss";
-
-#counterparty-table {
-  @extend %card-table;
-}
-
-.transaction-count {
-  @extend %currency-cell;
-}
-
-.counterparty-name {
-  @extend %clickable;
-}
-</style>
+<style lang="scss"></style>

@@ -9,7 +9,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <table id="account-table">
+  <table>
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -21,30 +21,14 @@ const emit = defineEmits<{
     <tbody>
       <tr v-for="account of accounts">
         <td @click="$emit('openAccount', account[0])">
-          <span class="account-name">
+          <span class="clickable">
             {{ account[1].name }}
           </span>
         </td>
-        <td class="amount">{{ format_currency(account[1].balance) }}</td>
-        <td class="amount">{{ account[1].transactions.length }}</td>
+        <td class="align-right">{{ format_currency(account[1].balance) }}</td>
+        <td class="align-right">{{ account[1].transactions.length }}</td>
         <td>{{ format_date(account[1].creation_timestamp) }}</td>
       </tr>
     </tbody>
   </table>
 </template>
-
-<style lang="scss">
-@use "../style_atoms.scss";
-
-#account-table {
-  @extend %card-table;
-}
-
-.amount {
-  @extend %currency-cell;
-}
-
-.account-name {
-  @extend %clickable;
-}
-</style>

@@ -12,14 +12,14 @@ const account = computed(() => get_account(props.account_uuid))
 </script>
 
 <template>
-  <span class="account-view-info-header">Account: </span>
-  <span class="account-view-info">{{ account.name }}</span>
+  <span class="information-header">Account: </span>
+  <span class="information">{{ account.name }}</span>
   <br>
-  <span class="account-view-info-header">Balance: </span>
-  <span class="account-view-info">{{ format_currency(account.balance) }}</span>
+  <span class="information-header">Balance: </span>
+  <span class="information">{{ format_currency(account.balance) }}</span>
   <br>
-  <span class="account-view-info-header">Created: </span>
-  <span class="account-view-info">{{ format_date(account.creation_timestamp) }}</span>
+  <span class="information-header">Created: </span>
+  <span class="information">{{ format_date(account.creation_timestamp) }}</span>
   <br>
   <table id="account-view-transaction-table">
     <thead>
@@ -32,7 +32,7 @@ const account = computed(() => get_account(props.account_uuid))
     <tbody>
       <tr v-if="account != null" v-for="transaction of account.transactions">
         <td>{{ get_counterparty(get_transaction(transaction).counterparty_id).name }}</td>
-        <td class="account-transaction-amount">{{ format_currency(get_transaction(transaction).amount) }}</td>
+        <td class="align-right">{{ format_currency(get_transaction(transaction).amount) }}</td>
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
       </tr>
     </tbody>
@@ -40,8 +40,6 @@ const account = computed(() => get_account(props.account_uuid))
 </template>
 
 <style lang="scss">
-@use "../style_atoms.scss";
-
 #account-view {
   max-width: fit-content;
   margin-top: var(--outer-gutter);
@@ -51,19 +49,6 @@ const account = computed(() => get_account(props.account_uuid))
 }
 
 #account-view-transaction-table {
-  @extend %card-table;
   margin-top: 1.5em;
-}
-
-.account-view-info-header {
-  @extend %information-header;
-}
-
-.account-view-info {
-  @extend %information;
-}
-
-.account-transaction-amount {
-  @extend %currency-cell;
 }
 </style>
