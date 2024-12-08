@@ -2,10 +2,7 @@
 import { get_account, get_counterparty, transactions } from '../account_management/ledger_state';
 import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
-import { ref } from 'vue';
 import TransactionModal from './TransactionModal.vue';
-
-const modal_active = ref(false);
 </script>
 
 <template>
@@ -24,15 +21,21 @@ const modal_active = ref(false);
         <td>{{ get_counterparty(transaction[1].counterparty_id).name }}</td>
         <td class="align-right">{{ format_currency(transaction[1].amount) }}</td>
         <td>{{ format_date(transaction[1].timestamp) }}</td>
+        <td>
+          <TransactionModal button-icon="edit" :transaction-uuid="transaction[0]" />
+        </td>
       </tr>
       <tr>
         <td>
-          <span class="material-symbols-outlined clickable" @click="modal_active = true">
-            add
-          </span>
-          <TransactionModal v-model:active="modal_active" />
+          <TransactionModal button-icon="add" />
         </td>
       </tr>
     </tbody>
   </table>
 </template>
+
+<style lang="scss" scope>
+td.material-symbols-outlined {
+  vertical-align: -15%;
+}
+</style>

@@ -5,6 +5,7 @@ import { accounts, counterparties, new_transaction, Transaction, transactions, U
 import Error from '../../Error.vue';
 
 const props = defineProps<{
+  buttonIcon: string
   transactionUuid?: UUID,
   initialAccountUuid?: UUID,
   initialCounterpartyUuid?: UUID
@@ -67,6 +68,9 @@ function finish() {
 </script>
 
 <template>
+  <span class="material-symbols-outlined clickable" @click="active = true">
+    {{ buttonIcon }}
+  </span>
   <Modal :active="active">
     <span class="input-label">Account: </span>
     <select name="account" id="account-dropdown" v-model="account_id">
@@ -107,11 +111,7 @@ function finish() {
 </template>
 
 <style lang="scss" scoped>
-* {
-  @extend .ibm-plex-serif;
-}
-
-span {
+span:not(.material-symbols-outlined) {
   @extend .information-header;
   line-height: 200%;
 }
@@ -139,8 +139,7 @@ input {
   }
 }
 
-span.clickable {
-  @extend .ibm-plex-serif;
+span.clickable:not(.material-symbols-outlined) {
   font-size: 1.25em;
 }
 

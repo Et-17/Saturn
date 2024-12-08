@@ -18,7 +18,7 @@ async function setup_example_ledger() {
         new Date(Date.now() - (45 * 60))
     );
 
-    let employer = await new_counterparty("Lakewood High School", "My employer");
+    let employer = await new_counterparty("Google", "My employer");
     let walmart = await new_counterparty("Walmart", "Multinational supermarket chain");
 
     new_transaction(checking, employer, 200, new Date(Date.now() - (10 * 60)));
