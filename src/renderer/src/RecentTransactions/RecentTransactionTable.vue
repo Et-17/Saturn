@@ -36,5 +36,3 @@ const modal_active = ref(false);
     </tbody>
   </table>
 </template>
-
-<style lang="scss" scoped></style>

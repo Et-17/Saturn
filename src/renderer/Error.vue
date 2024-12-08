@@ -20,7 +20,7 @@ div {
   border: solid 2px red;
   margin-block-start: 1em;
   margin-block-end: 1em;
-  padding: 2%;
+  padding: 3%;
 }
 
 span.material-symbols-outlined {

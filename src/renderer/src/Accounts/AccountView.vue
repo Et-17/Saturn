@@ -2,11 +2,14 @@
 import { format_currency } from '../readout_formatting/money';
 import { format_date } from '../readout_formatting/date';
 import { UUID, get_transaction, get_account, get_counterparty } from '../account_management/ledger_state';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import TransactionModal from '../RecentTransactions/TransactionModal.vue';
 
 const props = defineProps<{
   account_uuid: UUID;
 }>();
+
+const modal_active = ref(false);
 
 const account = computed(() => get_account(props.account_uuid))
 </script>
@@ -34,6 +37,14 @@ const account = computed(() => get_account(props.account_uuid))
         <td>{{ get_counterparty(get_transaction(transaction).counterparty_id).name }}</td>
         <td class="align-right">{{ format_currency(get_transaction(transaction).amount) }}</td>
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="material-symbols-outlined clickable" @click="modal_active = true">
+            add
+          </span>
+          <TransactionModal v-model:active="modal_active" :initial-account-uuid="account_uuid" />
+        </td>
       </tr>
     </tbody>
   </table>
