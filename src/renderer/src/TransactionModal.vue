@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import Modal from '../Modal.vue';
-import { accounts, counterparties, new_transaction, Transaction, transactions, UUID } from '../account_management/ledger_state';
-import Error from '../../Error.vue';
+import Modal from './Modal.vue';
+import { accounts, counterparties, new_transaction, Transaction, transactions, UUID } from './account_management/ledger_state';
+import Error from './Error.vue';
 
 const props = defineProps<{
   buttonIcon: string
@@ -101,7 +101,7 @@ function finish() {
     <div class="spacing" v-if="error_message == ''"></div>
     <div class="page-top-bar">
       <span class="clickable" @click="finish()">
-        {{ false ? "Save" : "Add" }}
+        {{ transactionUuid == undefined ? "Add" : "Save" }}
       </span>
       <span class="clickable" @click="active = false">
         Cancel

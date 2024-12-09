@@ -3,7 +3,8 @@ import { format_currency } from '../readout_formatting/money';
 import { format_date } from '../readout_formatting/date';
 import { UUID, get_transaction, get_account, get_counterparty } from '../account_management/ledger_state';
 import { computed } from 'vue';
-import TransactionModal from '../RecentTransactions/TransactionModal.vue';
+import TransactionModal from '../TransactionModal.vue';
+import DeleteTransactionModal from '../DeleteTransactionModal.vue';
 
 const props = defineProps<{
   account_uuid: UUID;
@@ -37,6 +38,7 @@ const account = computed(() => get_account(props.account_uuid))
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
         <td>
           <TransactionModal button-icon="edit" :transaction-uuid="transaction" />
+          <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction" />
         </td>
       </tr>
       <tr>

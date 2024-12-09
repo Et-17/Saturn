@@ -102,6 +102,14 @@ export async function new_counterparty(name: string, description?: string): Prom
     return new_uuid;
 }
 
+export async function delete_transaction(key: UUID): Promise<boolean> {
+    return transactions.value.delete(key);
+}
+
+export const delete_account = accounts.value.delete;
+
+export const delete_counterparty = counterparties.value.delete;
+
 export async function load_ledger(): Promise<void> {
     let ledger = await window.storage.read_ledger_file();
     accounts.value = ledger[0];

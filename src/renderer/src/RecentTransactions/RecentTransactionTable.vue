@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { get_account, get_counterparty, transactions } from '../account_management/ledger_state';
+import { delete_transaction, get_account, get_counterparty, transactions } from '../account_management/ledger_state';
 import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
-import TransactionModal from './TransactionModal.vue';
+import TransactionModal from '../TransactionModal.vue';
+import DeleteTransactionModal from '../DeleteTransactionModal.vue';
 </script>
 
 <template>
@@ -23,6 +24,7 @@ import TransactionModal from './TransactionModal.vue';
         <td>{{ format_date(transaction[1].timestamp) }}</td>
         <td>
           <TransactionModal button-icon="edit" :transaction-uuid="transaction[0]" />
+          <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction[0]" />
         </td>
       </tr>
       <tr>

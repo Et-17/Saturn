@@ -3,7 +3,8 @@ import { format_date } from '../readout_formatting/date';
 import { format_currency } from '../readout_formatting/money';
 import { get_transaction, UUID, get_counterparty, get_account, counterparties } from '../account_management/ledger_state';
 import { computed, ref } from 'vue';
-import TransactionModal from '../RecentTransactions/TransactionModal.vue';
+import TransactionModal from '../TransactionModal.vue';
+import DeleteTransactionModal from '../DeleteTransactionModal.vue';
 
 const props = defineProps<{
   counterparty_uuid: UUID;
@@ -34,6 +35,7 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
         <td>
           <TransactionModal button-icon="edit" :transactionUuid="transaction" />
+          <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction" />
         </td>
       </tr>
       <tr>
