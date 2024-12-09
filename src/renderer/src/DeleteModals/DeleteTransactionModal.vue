@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { delete_transaction, UUID } from './account_management/ledger_state';
-import Modal from './Modal.vue';
-import Error from './Error.vue';
+import { delete_transaction, UUID } from '../account_management/ledger_state';
+import Modal from '../Modal.vue';
+import Error from '../Error.vue';
 
 const active = defineModel<boolean>('active', { default: false });
 
@@ -15,8 +15,8 @@ const error_message = ref("");
 
 function remove() {
   delete_transaction(props.transactionUuid)
-    .then(() => active.value = false)
     .catch(() => error_message.value = "Error deleting transaction")
+    .then(() => active.value = false)
 }
 </script>
 
@@ -41,7 +41,7 @@ function remove() {
   </Modal>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 div:not(.material-symbols-outlined) {
   @extend .information-header;
   line-height: 125%;

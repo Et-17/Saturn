@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { counterparties, Counterparty, get_transaction, UUID } from '../account_management/ledger_state';
+import DeleteCounterpartyModal from '../DeleteModals/DeleteCounterpartyModal.vue';
 import { format_date } from '../readout_formatting/date';
 
-function get_last_transaction_time(counterparty: Counterparty) {
+function get_last_transaction_time(counterparty: Counterparty): string {
   let lastIndex = counterparty.transactions.length;
+  if (lastIndex == 0) {
+    return "N/A"; // No transactions
+  }
   let lastTransactionUUID = counterparty.transactions[lastIndex - 1];
-  return get_transaction(lastTransactionUUID).timestamp;
+  return format_date(get_transaction(lastTransactionUUID).timestamp);
 }
 
 const emit = defineEmits<{
@@ -30,10 +34,11 @@ const emit = defineEmits<{
           </span>
         </td>
         <td class="align-right">{{ counterparty[1].transactions.length }}</td>
-        <td>{{ format_date(get_last_transaction_time(counterparty[1])) }}</td>
+        <td>{{ get_last_transaction_time(counterparty[1]) }}</td>
+        <td>
+          <DeleteCounterpartyModal button-icon="delete" :counterparty-uuid="counterparty[0]" />
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
-
-<style lang="scss"></style>

@@ -102,13 +102,52 @@ export async function new_counterparty(name: string, description?: string): Prom
     return new_uuid;
 }
 
-export async function delete_transaction(key: UUID): Promise<boolean> {
-    return transactions.value.delete(key);
+export async function delete_transaction(key: UUID) {
+    const transaction = transactions.value.get(key);
+    if (transaction == undefined) {
+        throw "Could not find transaction";
+    }
+
+    const account_transaction_index = accounts.value.get(transaction.account_id)?.transactions.indexOf(key);
+    if (account_transaction_index == undefined) {
+        throw "Could not find account";
+    }
+    accounts.value.get(transaction.account_id)?.transactions.splice(account_transaction_index, 1);
+
+    const counterparty_transaction_index = counterparties.value.get(transaction.counterparty_id)?.transactions.indexOf(key);
+    if (counterparty_transaction_index == undefined) {
+        throw "Could not find counterparty";
+    }
+    counterparties.value.get(transaction.counterparty_id)?.transactions.splice(counterparty_transaction_index, 1);
+
+    transactions.value.delete(key);
 }
 
-export const delete_account = accounts.value.delete;
+export async function delete_account(key: UUID) {
+    const account = accounts.value.get(key);
+    if (account == undefined) {
+        throw "Could not find account";
+    }
+    // We have to copy the array with Array.from here because if we iterated
+    // through account.transactions, then it would all get bungled up as we
+    // delete transactions and modify that list.
+    await Promise.all(Array.from(account.transactions).map(delete_transaction));
 
-export const delete_counterparty = counterparties.value.delete;
+    accounts.value.delete(key);
+}
+
+// export const delete_counterparty = counterparties.value.delete;
+export async function delete_counterparty(key: UUID) {
+    const counterparty = counterparties.value.get(key);
+    if (counterparty == undefined) {
+        throw "Could not find counterparty";
+    }
+
+    // For why we use Array.from, see delete_account()
+    await Promise.all(Array.from(counterparty.transactions).map(delete_transaction));
+    
+    counterparties.value.delete(key);
+}
 
 export async function load_ledger(): Promise<void> {
     let ledger = await window.storage.read_ledger_file();

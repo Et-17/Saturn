@@ -4,7 +4,7 @@ import { format_date } from '../readout_formatting/date';
 import { UUID, get_transaction, get_account, get_counterparty } from '../account_management/ledger_state';
 import { computed } from 'vue';
 import TransactionModal from '../TransactionModal.vue';
-import DeleteTransactionModal from '../DeleteTransactionModal.vue';
+import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 
 const props = defineProps<{
   account_uuid: UUID;

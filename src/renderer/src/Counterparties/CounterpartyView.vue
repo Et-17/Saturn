@@ -4,7 +4,7 @@ import { format_currency } from '../readout_formatting/money';
 import { get_transaction, UUID, get_counterparty, get_account, counterparties } from '../account_management/ledger_state';
 import { computed, ref } from 'vue';
 import TransactionModal from '../TransactionModal.vue';
-import DeleteTransactionModal from '../DeleteTransactionModal.vue';
+import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 
 const props = defineProps<{
   counterparty_uuid: UUID;

@@ -2,6 +2,7 @@
 import { accounts, UUID } from '../account_management/ledger_state';
 import { format_currency } from '../readout_formatting/money';
 import { format_date } from '..//readout_formatting/date';
+import DeleteAccountModal from '../DeleteModals/DeleteAccountModal.vue';
 
 const emit = defineEmits<{
   openAccount: [uuid: UUID]
@@ -28,6 +29,9 @@ const emit = defineEmits<{
         <td class="align-right">{{ format_currency(account[1].balance) }}</td>
         <td class="align-right">{{ account[1].transactions.length }}</td>
         <td>{{ format_date(account[1].creation_timestamp) }}</td>
+        <td>
+          <DeleteAccountModal button-icon="delete" :account-uuid="account[0]" />
+        </td>
       </tr>
     </tbody>
   </table>

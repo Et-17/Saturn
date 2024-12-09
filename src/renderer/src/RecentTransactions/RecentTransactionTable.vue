@@ -3,7 +3,7 @@ import { delete_transaction, get_account, get_counterparty, transactions } from 
 import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
 import TransactionModal from '../TransactionModal.vue';
-import DeleteTransactionModal from '../DeleteTransactionModal.vue';
+import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 </script>
 
 <template>
