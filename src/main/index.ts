@@ -1,5 +1,5 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { read_ledger_file, write_ledger_file } from '../renderer/src/account_management/ledger_storage'
@@ -11,7 +11,7 @@ import { export_transactions } from './export_transactions'
 // case, we store it in the directory that you run Saturn from.
 const LEDGER_FILE_NAME = "ledger.json";
 const LEDGER_PATH = process.env.NODE_ENV == 'development' ?
-  LEDGER_FILE_NAME : join(__dirname, LEDGER_FILE_NAME);
+  LEDGER_FILE_NAME : join(path.dirname(app.getPath("exe")), LEDGER_FILE_NAME);
 
 function createWindow(): void {
   // Create the browser window.

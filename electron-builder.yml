@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: saturn
+appId: com.saturn.app
+productName: Saturn
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: saturn
+  executableName: Saturn
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
