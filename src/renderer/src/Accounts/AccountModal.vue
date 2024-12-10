@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
 import Modal from '../Modal.vue';
-import { Account, accounts, new_account, UUID } from '../account_management/ledger_state';
+import { Account, accounts, new_account, save_ledger, UUID } from '../account_management/ledger_state';
 import Error from '../Error.vue';
 
 const props = defineProps<{
@@ -20,7 +20,7 @@ if (props.accountUuid != undefined) {
 let name: Ref<string> = ref(account?.name ?? "");
 let description: Ref<string> = ref(account?.description ?? "");
 
-const error_message = ref("Arf! Arf!");
+const error_message = ref("");
 
 // This function exits the modal and not the add button because if something
 // goes wrong, I don't want to exit the modal
@@ -30,8 +30,10 @@ function finish() {
     return;
   }
 
+  // Check if this modal is supposed to edit an account or make a new one
   if (props.accountUuid == undefined) {
     new_account(name.value, description.value);
+    // Clear the fields
     name.value = "";
     description.value = "";
   } else if (account != undefined) {
@@ -46,6 +48,7 @@ function finish() {
       transactions: account.transactions,
       creation_timestamp: account.creation_timestamp
     });
+    save_ledger();
   } else {
     error_message.value = "Could not find account to edit";
   }
@@ -61,6 +64,7 @@ function finish() {
   <Modal :active="active">
     <span class="input-label">Name:</span>
     <input type="text" v-model="name" />
+    <br>
 
     <span class="input-label">Description:</span>
     <input type="text" v-model="description" />
@@ -87,7 +91,7 @@ span:not(.material-symbols-outlined) {
 input {
   @extend .information;
   background-color: var(--input-background);
-  width: 30%;
+  width: 60%;
   border: unset;
   font-size: inherit;
 

@@ -24,6 +24,8 @@ import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
         <td>{{ format_date(transaction[1].timestamp) }}</td>
         <td>
           <TransactionModal button-icon="edit" :transaction-uuid="transaction[0]" />
+        </td>
+        <td>
           <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction[0]" />
         </td>
       </tr>

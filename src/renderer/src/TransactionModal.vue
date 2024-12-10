@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
 import Modal from './Modal.vue';
-import { accounts, counterparties, new_transaction, Transaction, transactions, UUID } from './account_management/ledger_state';
+import { accounts, counterparties, new_transaction, recalc_account_balance, save_ledger, Transaction, transactions, UUID } from './account_management/ledger_state';
 import Error from './Error.vue';
 
 const props = defineProps<{
@@ -45,6 +45,7 @@ function finish() {
     return;
   }
 
+  // Check if this modal is supposed to edit a transaction or make a new one
   if (props.transactionUuid == undefined) {
     new_transaction(account_id.value, counterparty_id.value, amount.value);
     // Clear the fields for the next addition
@@ -58,6 +59,8 @@ function finish() {
       amount: amount.value,
       timestamp: transaction?.timestamp
     });
+    recalc_account_balance(account_id.value);
+    save_ledger();
   } else {
     error_message.value = "Could not find transaction to edit"
   }

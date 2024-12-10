@@ -69,13 +69,14 @@ export async function new_transaction(account_id: UUID, counterparty_id: UUID, a
     }
     get_account(account_id).transactions.push(new_uuid);
     get_counterparty(counterparty_id).transactions.push(new_uuid);
-
+    
     transactions.value.set(new_uuid, {
         account_id,
         counterparty_id,
         amount,
         timestamp: timestamp ?? new Date()
     });
+    recalc_account_balance(account_id);
 
     save_ledger();
     return new_uuid;
@@ -118,6 +119,7 @@ export async function delete_transaction(key: UUID) {
         throw "Could not find account";
     }
     accounts.value.get(transaction.account_id)?.transactions.splice(account_transaction_index, 1);
+    recalc_account_balance(transaction.account_id);
 
     const counterparty_transaction_index = counterparties.value.get(transaction.counterparty_id)?.transactions.indexOf(key);
     if (counterparty_transaction_index == undefined) {
@@ -154,11 +156,21 @@ export async function delete_counterparty(key: UUID) {
 
     // For why we use Array.from, see delete_account()
     await Promise.all(Array.from(counterparty.transactions).map(delete_transaction));
-    
+
     counterparties.value.delete(key);
 
     save_ledger();
 }
+
+// This goes through a transaction list and finds the balance of the account
+// after making those transactions, assuming it starts at $0
+export const calc_balance = (transactions: UUID[]): number =>
+    transactions
+        .map((uuid) => get_transaction(uuid).amount) // Map uuids to amounts
+        .reduce((a, b) => a + b) // Sum amounts
+
+export const recalc_account_balance = (account: UUID) =>
+    get_account(account).balance = calc_balance(get_account(account).transactions);
 
 export async function load_ledger(): Promise<void> {
     let ledger = await window.storage.read_ledger_file();

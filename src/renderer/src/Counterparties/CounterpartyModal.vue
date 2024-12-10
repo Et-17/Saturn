@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
 import Modal from '../Modal.vue';
-import { Counterparty, counterparties, new_counterparty, UUID } from '../account_management/ledger_state';
+import { Counterparty, counterparties, new_counterparty, UUID, save_ledger } from '../account_management/ledger_state';
 import Error from '../Error.vue';
 
 const props = defineProps<{
@@ -30,13 +30,15 @@ function finish() {
         return;
     }
 
+    // Check if this modal is supposed to edit a counterparty or make a new one
     if (props.counterpartyUuid == undefined) {
         new_counterparty(name.value, description.value);
+        // Clear the fields
         name.value = "";
         description.value = "";
     } else if (counterparty != undefined) {
         // If the description field is blank, we want to store it as undefined
-        // in the Account object
+        // in the Counterparty object
         const proc_description = description.value.trim() == "" ?
             undefined : description.value.trim();
         counterparties.value.set(props.counterpartyUuid, {
@@ -44,6 +46,7 @@ function finish() {
             description: proc_description,
             transactions: counterparty.transactions,
         });
+        save_ledger();
     } else {
         error_message.value = "Could not find counterparty to edit";
     }

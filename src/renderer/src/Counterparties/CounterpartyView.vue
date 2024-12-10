@@ -35,6 +35,8 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
         <td>
           <TransactionModal button-icon="edit" :transactionUuid="transaction" />
+        </td>
+        <td>
           <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction" />
         </td>
       </tr>

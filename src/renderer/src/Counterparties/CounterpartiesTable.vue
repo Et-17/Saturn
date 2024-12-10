@@ -38,6 +38,8 @@ const emit = defineEmits<{
         <td>{{ get_last_transaction_time(counterparty[1]) }}</td>
         <td>
           <CounterpartyModal button-icon="edit" :counterparty-uuid="counterparty[0]" />
+        </td>
+        <td>
           <DeleteCounterpartyModal button-icon="delete" :counterparty-uuid="counterparty[0]" />
         </td>
       </tr>

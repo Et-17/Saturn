@@ -40,6 +40,8 @@ const account = computed(() => get_account(props.account_uuid))
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
         <td>
           <TransactionModal button-icon="edit" :transaction-uuid="transaction" />
+        </td>
+        <td>
           <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction" />
         </td>
       </tr>

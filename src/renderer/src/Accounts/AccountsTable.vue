@@ -32,6 +32,8 @@ const emit = defineEmits<{
         <td>{{ format_date(account[1].creation_timestamp) }}</td>
         <td>
           <AccountModal button-icon="edit" :account-uuid="account[0]" />
+        </td>
+        <td>
           <DeleteAccountModal button-icon="delete" :account-uuid="account[0]" />
         </td>
       </tr>
