@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
 import Modal from './Modal.vue';
-import { accounts, counterparties, new_transaction, recalc_account_balance, save_ledger, Transaction, transactions, UUID } from './account_management/ledger_state';
+import { accounts, counterparties, get_transaction, new_transaction, recalc_account_balance, save_ledger, Transaction, transactions, UUID } from './account_management/ledger_state';
 import Error from './Error.vue';
 
 const props = defineProps<{
@@ -13,10 +13,9 @@ const props = defineProps<{
 
 const active = defineModel<boolean>('active', { default: false });
 
-console.log(props.transactionUuid);
 let transaction: Transaction | undefined = undefined;
 if (props.transactionUuid != undefined) {
-  transaction = transactions.value.get(props.transactionUuid);
+  transaction = get_transaction(props.transactionUuid);
 }
 
 // This is the v-model for the account input. Essentially, this variable will

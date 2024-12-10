@@ -1,6 +1,4 @@
 <script setup lang="ts">
-console.log("uwu");
-
 defineProps<{
   active: boolean
 }>();

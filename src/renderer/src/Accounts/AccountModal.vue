@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, ref, toRaw } from 'vue';
 import Modal from '../Modal.vue';
-import { Account, accounts, new_account, save_ledger, UUID } from '../account_management/ledger_state';
+import { Account, accounts, get_account, new_account, save_ledger, UUID } from '../account_management/ledger_state';
 import Error from '../Error.vue';
 
 const props = defineProps<{
@@ -11,10 +11,9 @@ const props = defineProps<{
 
 const active = defineModel<boolean>('active', { default: false });
 
-console.log(props.accountUuid);
 let account: Account | undefined = undefined;
 if (props.accountUuid != undefined) {
-  account = accounts.value.get(props.accountUuid);
+  account = get_account(props.accountUuid);
 }
 
 let name: Ref<string> = ref(account?.name ?? "");
@@ -45,7 +44,7 @@ function finish() {
       name: name.value.trim(),
       description: proc_description,
       balance: account.balance,
-      transactions: account.transactions,
+      transactions: toRaw(account.transactions),
       creation_timestamp: account.creation_timestamp
     });
     save_ledger();

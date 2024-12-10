@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, ref, toRaw } from 'vue';
 import Modal from '../Modal.vue';
-import { Counterparty, counterparties, new_counterparty, UUID, save_ledger } from '../account_management/ledger_state';
+import { Counterparty, counterparties, new_counterparty, UUID, save_ledger, get_counterparty } from '../account_management/ledger_state';
 import Error from '../Error.vue';
 
 const props = defineProps<{
@@ -11,10 +11,9 @@ const props = defineProps<{
 
 const active = defineModel<boolean>('active', { default: false });
 
-console.log(props.counterpartyUuid);
 let counterparty: Counterparty | undefined = undefined;
 if (props.counterpartyUuid != undefined) {
-    counterparty = counterparties.value.get(props.counterpartyUuid);
+    counterparty = get_counterparty(props.counterpartyUuid);
 }
 
 let name: Ref<string> = ref(counterparty?.name ?? "");
@@ -44,7 +43,7 @@ function finish() {
         counterparties.value.set(props.counterpartyUuid, {
             name: name.value.trim(),
             description: proc_description,
-            transactions: counterparty.transactions,
+            transactions: toRaw(counterparty.transactions),
         });
         save_ledger();
     } else {

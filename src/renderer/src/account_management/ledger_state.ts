@@ -109,23 +109,23 @@ export async function new_counterparty(name: string, description?: string): Prom
 }
 
 export async function delete_transaction(key: UUID) {
-    const transaction = transactions.value.get(key);
+    const transaction = get_transaction(key);
     if (transaction == undefined) {
         throw "Could not find transaction";
     }
 
-    const account_transaction_index = accounts.value.get(transaction.account_id)?.transactions.indexOf(key);
+    const account_transaction_index = get_account(transaction.account_id)?.transactions.indexOf(key);
     if (account_transaction_index == undefined) {
         throw "Could not find account";
     }
-    accounts.value.get(transaction.account_id)?.transactions.splice(account_transaction_index, 1);
+    get_account(transaction.account_id)?.transactions.splice(account_transaction_index, 1);
     recalc_account_balance(transaction.account_id);
 
-    const counterparty_transaction_index = counterparties.value.get(transaction.counterparty_id)?.transactions.indexOf(key);
+    const counterparty_transaction_index = get_counterparty(transaction.counterparty_id)?.transactions.indexOf(key);
     if (counterparty_transaction_index == undefined) {
         throw "Could not find counterparty";
     }
-    counterparties.value.get(transaction.counterparty_id)?.transactions.splice(counterparty_transaction_index, 1);
+    get_counterparty(transaction.counterparty_id)?.transactions.splice(counterparty_transaction_index, 1);
 
     transactions.value.delete(key);
 
@@ -133,7 +133,7 @@ export async function delete_transaction(key: UUID) {
 }
 
 export async function delete_account(key: UUID) {
-    const account = accounts.value.get(key);
+    const account = get_account(key);
     if (account == undefined) {
         throw "Could not find account";
     }
@@ -149,12 +149,14 @@ export async function delete_account(key: UUID) {
 
 // export const delete_counterparty = counterparties.value.delete;
 export async function delete_counterparty(key: UUID) {
-    const counterparty = counterparties.value.get(key);
+    const counterparty = get_counterparty(key);
     if (counterparty == undefined) {
         throw "Could not find counterparty";
     }
 
-    // For why we use Array.from, see delete_account()
+    // We have to copy the array with Array.from here because if we iterated
+    // through account.transactions, then it would all get bungled up as we
+    // delete transactions and modify that list.
     await Promise.all(Array.from(counterparty.transactions).map(delete_transaction));
 
     counterparties.value.delete(key);
@@ -167,7 +169,7 @@ export async function delete_counterparty(key: UUID) {
 export const calc_balance = (transactions: UUID[]): number =>
     transactions
         .map((uuid) => get_transaction(uuid).amount) // Map uuids to amounts
-        .reduce((a, b) => a + b) // Sum amounts
+        .reduce((a, b) => a + b, 0) // Sum amounts
 
 export const recalc_account_balance = (account: UUID) =>
     get_account(account).balance = calc_balance(get_account(account).transactions);
