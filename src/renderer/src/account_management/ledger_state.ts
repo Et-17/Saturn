@@ -77,6 +77,7 @@ export async function new_transaction(account_id: UUID, counterparty_id: UUID, a
         timestamp: timestamp ?? new Date()
     });
 
+    save_ledger();
     return new_uuid;
 }
 
@@ -89,6 +90,8 @@ export async function new_account(name: string, description?: string, creation_t
         transactions: [],
         creation_timestamp: creation_timestamp ?? new Date
     });
+
+    save_ledger();
     return new_uuid;
 }
 
@@ -99,6 +102,8 @@ export async function new_counterparty(name: string, description?: string): Prom
         description,
         transactions: []
     });
+
+    save_ledger();
     return new_uuid;
 }
 
@@ -121,6 +126,8 @@ export async function delete_transaction(key: UUID) {
     counterparties.value.get(transaction.counterparty_id)?.transactions.splice(counterparty_transaction_index, 1);
 
     transactions.value.delete(key);
+
+    save_ledger();
 }
 
 export async function delete_account(key: UUID) {
@@ -134,6 +141,8 @@ export async function delete_account(key: UUID) {
     await Promise.all(Array.from(account.transactions).map(delete_transaction));
 
     accounts.value.delete(key);
+
+    save_ledger();
 }
 
 // export const delete_counterparty = counterparties.value.delete;
@@ -147,6 +156,8 @@ export async function delete_counterparty(key: UUID) {
     await Promise.all(Array.from(counterparty.transactions).map(delete_transaction));
     
     counterparties.value.delete(key);
+
+    save_ledger();
 }
 
 export async function load_ledger(): Promise<void> {

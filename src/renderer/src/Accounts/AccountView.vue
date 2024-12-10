@@ -23,6 +23,8 @@ const account = computed(() => get_account(props.account_uuid))
   <span class="information-header">Created: </span>
   <span class="information">{{ format_date(account.creation_timestamp) }}</span>
   <br>
+  <span class="information-header">Description: </span>
+  <span class="information">{{ account.description ?? "None" }}</span>
   <table id="account-view-transaction-table">
     <thead>
       <tr>

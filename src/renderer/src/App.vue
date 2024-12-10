@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
-import { accounts, counterparties, new_account, new_counterparty, new_transaction, transactions } from './account_management/ledger_state';
+import { accounts, counterparties, load_ledger, new_account, new_counterparty, new_transaction, save_ledger, transactions } from './account_management/ledger_state';
 import Accounts from "./Accounts/Accounts.vue";
 import Sidebar from "./Sidebar/Sidebar.vue";
 import Counterparties from "./Counterparties/Counterparties.vue";
@@ -26,9 +26,11 @@ async function setup_example_ledger() {
     new_transaction(savings, employer, 50, new Date(Date.now() + (60 * 60)));
 }
 
-setup_example_ledger().then(() => console.log(transactions.value, accounts.value, counterparties.value));
+// setup_example_ledger().then(() => console.log(transactions.value, accounts.value, counterparties.value));
 
 const current_page = ref("recent-transactions");
+
+onMounted(load_ledger);
 </script>
 
 <template>
