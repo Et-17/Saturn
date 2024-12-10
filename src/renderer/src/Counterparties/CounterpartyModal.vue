@@ -17,19 +17,16 @@ if (props.counterpartyUuid != undefined) {
     counterparty = counterparties.value.get(props.counterpartyUuid);
 }
 
-// Account variables
-// name
-// description
 let name: Ref<string> = ref(counterparty?.name ?? "");
 let description: Ref<string> = ref(counterparty?.description ?? "");
 
-const error_message = ref("Arf! Arf!");
+const error_message = ref("");
 
 // This function exits the modal and not the add button because if something
 // goes wrong, I don't want to exit the modal
 function finish() {
     if (name.value == "") {
-        error_message.value = "Missing account name";
+        error_message.value = "Missing counterparty name";
         return;
     }
 
@@ -48,7 +45,7 @@ function finish() {
             transactions: counterparty.transactions,
         });
     } else {
-        error_message.value = "Could not find account to edit";
+        error_message.value = "Could not find counterparty to edit";
     }
 
     active.value = false;
@@ -62,6 +59,7 @@ function finish() {
     <Modal :active="active">
         <span class="input-label">Name:</span>
         <input type="text" v-model="name" />
+        <br>
 
         <span class="input-label">Description:</span>
         <input type="text" v-model="description" />
@@ -88,7 +86,7 @@ span:not(.material-symbols-outlined) {
 input {
     @extend .information;
     background-color: var(--input-background);
-    width: 30%;
+    width: 60%;
     border: unset;
     font-size: inherit;
 

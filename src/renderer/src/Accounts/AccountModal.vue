@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
 import Modal from '../Modal.vue';
-import { Account, accounts, counterparties, new_account, UUID } from '../account_management/ledger_state';
+import { Account, accounts, new_account, UUID } from '../account_management/ledger_state';
 import Error from '../Error.vue';
 
 const props = defineProps<{
@@ -17,9 +17,6 @@ if (props.accountUuid != undefined) {
   account = accounts.value.get(props.accountUuid);
 }
 
-// Account variables
-// name
-// description
 let name: Ref<string> = ref(account?.name ?? "");
 let description: Ref<string> = ref(account?.description ?? "");
 
