@@ -4,6 +4,7 @@ import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
 import TransactionModal from '../TransactionModal.vue';
 import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
+import ExportTransactions from '../ExportTransactions.vue';
 </script>
 
 <template>
@@ -32,6 +33,10 @@ import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
       <tr>
         <td>
           <TransactionModal button-icon="add" />
+        </td>
+        <td v-for="_ in 4"></td>
+        <td>
+          <ExportTransactions button-icon="download" :transactions="Array.from(transactions.keys())" />
         </td>
       </tr>
     </tbody>

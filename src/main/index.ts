@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { read_ledger_file, write_ledger_file } from '../renderer/src/account_management/ledger_storage'
+import { export_transactions } from './export_transactions'
 
 // If we're in production, we want to tuck the ledger file safely along with the
 // rest of the program files. However, in development, it will get deleted
@@ -84,4 +85,5 @@ app.whenReady().then(() => {
   ipcMain.handle("write_ledger_file", (_, accounts, counterparties, transactions) =>
     write_ledger_file(LEDGER_PATH, accounts, counterparties, transactions));
   ipcMain.handle("read_ledger_file", () => read_ledger_file(LEDGER_PATH));
+  ipcMain.handle("export_transactions", (_, transactions) => export_transactions(transactions));
 })

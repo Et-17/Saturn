@@ -182,3 +182,7 @@ export async function load_ledger(): Promise<void> {
 export async function save_ledger(): Promise<void> {
     return window.storage.write_ledger_file(toRaw(accounts.value), toRaw(counterparties.value), toRaw(transactions.value));
 }
+
+export async function export_transactions(formatted_transactions: string[][]) {
+    return window.storage.export_transactions_call(formatted_transactions)
+}
