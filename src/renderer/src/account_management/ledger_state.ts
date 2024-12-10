@@ -181,6 +181,13 @@ export async function load_ledger(): Promise<void> {
     transactions.value = ledger[2];
 }
 
+export async function load_example_ledger(): Promise<void> {
+    let ledger = await window.storage.example_ledger();
+    accounts.value = ledger[0];
+    counterparties.value = ledger[1];
+    transactions.value = ledger[2];
+}
+
 export async function save_ledger(): Promise<void> {
     return window.storage.write_ledger_file(toRaw(accounts.value), toRaw(counterparties.value), toRaw(transactions.value));
 }

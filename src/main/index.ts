@@ -10,8 +10,11 @@ import { export_transactions } from './export_transactions'
 // after every build/run and it's inconvient to view in the IDE. So, in that
 // case, we store it in the directory that you run Saturn from.
 const LEDGER_FILE_NAME = "ledger.json";
+const EXAMPLE_LEDGER_FILE_NAME = "example_ledger.json";
 const LEDGER_PATH = process.env.NODE_ENV == 'development' ?
   LEDGER_FILE_NAME : join(process.env.PORTABLE_EXECUTABLE_DIR ?? '', LEDGER_FILE_NAME);
+const EXAMPLE_LEDGER_PATH = process.env.NODE_ENV == 'development' ?
+  EXAMPLE_LEDGER_FILE_NAME : join(process.env.PORTABLE_EXECUTABLE_DIR ?? '', EXAMPLE_LEDGER_FILE_NAME);
 
 function createWindow(): void {
   // Create the browser window.
@@ -86,4 +89,5 @@ app.whenReady().then(() => {
     write_ledger_file(LEDGER_PATH, accounts, counterparties, transactions));
   ipcMain.handle("read_ledger_file", () => read_ledger_file(LEDGER_PATH));
   ipcMain.handle("export_transactions", (_, transactions) => export_transactions(transactions));
+  ipcMain.handle("example_ledger", () => read_ledger_file(EXAMPLE_LEDGER_PATH));
 })
