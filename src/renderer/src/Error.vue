@@ -25,7 +25,6 @@ div {
 
 span.material-symbols-outlined {
   padding-inline-end: 1%;
-  vertical-align: -15%;
 }
 
 span {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { delete_transaction, get_account, get_counterparty, transactions } from '../account_management/ledger_state';
+import { get_account, get_counterparty, transactions } from '../account_management/ledger_state';
 import { format_currency } from "../readout_formatting/money";
 import { format_date } from '../readout_formatting/date';
 import TransactionModal from '../TransactionModal.vue';
@@ -35,9 +35,3 @@ import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
     </tbody>
   </table>
 </template>
-
-<style lang="scss" scope>
-td.material-symbols-outlined {
-  vertical-align: -15%;
-}
-</style>
