@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import RecentTransactions from "./RecentTransactions/RecentTransactions.vue";
-import { accounts, counterparties, load_ledger, new_account, new_counterparty, new_transaction, save_ledger, transactions } from './account_management/ledger_state';
+import { load_ledger } from './account_management/ledger_state';
 import Accounts from "./Accounts/Accounts.vue";
 import Sidebar from "./Sidebar/Sidebar.vue";
 import Counterparties from "./Counterparties/Counterparties.vue";

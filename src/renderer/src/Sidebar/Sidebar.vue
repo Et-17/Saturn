@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { load_example_ledger, save_ledger } from '../account_management/ledger_state';
+import { load_example_ledger } from '../account_management/ledger_state';
 import SidebarButton from './SidebarButton.vue';
 
 const current_page = defineModel<string>('current');
 
-const emit = defineEmits<{
+defineEmits<{
   switchPage: [newPage: string]
 }>();
 

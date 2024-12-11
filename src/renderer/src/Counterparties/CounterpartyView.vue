@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { format_date } from '../readout_formatting/date';
 import { format_currency } from '../readout_formatting/money';
-import { get_transaction, UUID, get_counterparty, get_account, counterparties } from '../account_management/ledger_state';
-import { computed, ref } from 'vue';
+import { get_transaction, UUID, get_counterparty, get_account } from '../account_management/ledger_state';
+import { computed } from 'vue';
 import TransactionModal from '../TransactionModal.vue';
 import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 import ExportTransactions from '../ExportTransactions.vue';

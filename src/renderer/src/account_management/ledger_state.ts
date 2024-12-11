@@ -108,7 +108,7 @@ export async function new_counterparty(name: string, description?: string): Prom
     return new_uuid;
 }
 
-export async function delete_transaction(key: UUID) {
+export async function delete_transaction(key: UUID, save: boolean = true) {
     const transaction = get_transaction(key);
     if (transaction == undefined) {
         throw "Could not find transaction";
@@ -129,7 +129,9 @@ export async function delete_transaction(key: UUID) {
 
     transactions.value.delete(key);
 
-    save_ledger();
+    if (save) {
+        save_ledger();
+    }
 }
 
 export async function delete_account(key: UUID) {
@@ -140,7 +142,7 @@ export async function delete_account(key: UUID) {
     // We have to copy the array with Array.from here because if we iterated
     // through account.transactions, then it would all get bungled up as we
     // delete transactions and modify that list.
-    await Promise.all(Array.from(account.transactions).map(delete_transaction));
+    await Promise.all(Array.from(account.transactions).map((t) => delete_transaction(t, false)));
 
     accounts.value.delete(key);
 
@@ -157,7 +159,7 @@ export async function delete_counterparty(key: UUID) {
     // We have to copy the array with Array.from here because if we iterated
     // through account.transactions, then it would all get bungled up as we
     // delete transactions and modify that list.
-    await Promise.all(Array.from(counterparty.transactions).map(delete_transaction));
+    await Promise.all(Array.from(counterparty.transactions).map((t) => delete_transaction(t, false)));
 
     counterparties.value.delete(key);
 

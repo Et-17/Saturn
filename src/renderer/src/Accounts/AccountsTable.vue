@@ -5,7 +5,7 @@ import { format_date } from '..//readout_formatting/date';
 import DeleteAccountModal from '../DeleteModals/DeleteAccountModal.vue';
 import AccountModal from './AccountModal.vue';
 
-const emit = defineEmits<{
+defineEmits<{
   openAccount: [uuid: UUID]
 }>();
 </script>

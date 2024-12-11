@@ -13,7 +13,7 @@ function get_last_transaction_time(counterparty: Counterparty): string {
   return format_date(get_transaction(lastTransactionUUID).timestamp);
 }
 
-const emit = defineEmits<{
+defineEmits<{
   openCounterparty: [uuid: UUID]
 }>();
 </script>

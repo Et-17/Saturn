@@ -15,6 +15,8 @@ export async function write_ledger_file(path: PathLike, accounts: UUIDMap<Accoun
         "ledger_transactions": Array.from(transactions.entries())
     }
     let json_string = JSON.stringify(ledger);
+    console.log(JSON.parse(json_string));
+
     return fs.writeFile(path, json_string, { encoding: "utf8" });
 }
 
