@@ -1,6 +1,7 @@
 import { PathLike } from "node:fs";
 import { Transaction, Account, Counterparty, UUID, UUIDMap } from "./ledger_state";
 import fs from "node:fs/promises";
+import example_ledger from "../example_ledger.json";
 
 // In Electron, you can only access files in secure contexts so the functions
 // in this file cannot be accessed directly. They get loaded globally in 
@@ -63,4 +64,14 @@ export async function read_ledger_file(path: PathLike): Promise<[UUIDMap<Account
     }
 
     return [ledger.ledger_accounts, ledger.ledger_counterparties, ledger.ledger_transactions];
+}
+
+export async function read_example_ledger(): Promise<[UUIDMap<Account>, UUIDMap<Counterparty>, UUIDMap<Transaction>]> {
+    console.log("loading example ledger");
+
+    let accounts = des_reviver("ledger_accounts", example_ledger.ledger_accounts as any);
+    let counterparties = des_reviver("ledger_counterparties", example_ledger.ledger_counterparties as any);
+    let transactions = des_reviver("ledger_transactions", example_ledger.ledger_transactions as any);
+
+    return [accounts, counterparties, transactions];
 }
