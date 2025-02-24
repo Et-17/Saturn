@@ -28,5 +28,22 @@
 
 import { createApp } from 'vue';
 import App from './App.vue';
+import { createMemoryHistory as createWebHashHistory, createRouter } from 'vue-router';
 
-createApp(App).mount('#app');
+import RecentTransactions from './RecentTransactions/RecentTransactions.vue';
+import Accounts from './Accounts/Accounts.vue';
+import Counterparties from './Counterparties/Counterparties.vue';
+
+const routes = [
+    { path: '/', redirect: { name: 'recent-transactions' } },
+    { path: '/recent-transactions', name: 'recent-transactions', component: RecentTransactions },
+    { path: '/accounts', name: 'accounts', component: Accounts },
+    { path: '/counterparties', name: 'counterparties', component: Counterparties}
+];
+
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes
+})
+
+createApp(App).use(router).mount('#app');

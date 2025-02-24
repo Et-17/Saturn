@@ -1,15 +1,15 @@
 <script setup lang="ts">
 defineProps<{
+  routeName: string,
   iconName: string,
-  selected: boolean
 }>();
 </script>
 
 <template>
   <div>
-    <span class="material-symbols-outlined" :class="{ 'selected': selected }">
+    <RouterLink :to="{ name: routeName }" class="material-symbols-outlined" active-class="selected">
       {{ iconName }}
-    </span>
+    </RouterLink>
   </div>
 </template>
 
@@ -23,7 +23,10 @@ div {
   transition: transform $transition-speed;
 }
 
-span {
+a {
+  color: unset;
+  cursor: unset;
+  text-decoration: unset;
   font-size: $icon-size;
   user-select: none;
   transition: font-variation-settings $transition-speed;
