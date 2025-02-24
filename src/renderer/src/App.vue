@@ -7,6 +7,8 @@ onMounted(load_ledger);
 </script>
 
 <template>
-    <RouterView />
+    <div class="page">
+        <RouterView />
+    </div>
     <Sidebar />
 </template>

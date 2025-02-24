@@ -38,7 +38,7 @@ const routes = [
     { path: '/', redirect: { name: 'recent-transactions' } },
     { path: '/recent-transactions', name: 'recent-transactions', component: RecentTransactions },
     { path: '/accounts', name: 'accounts', component: Accounts },
-    { path: '/counterparties', name: 'counterparties', component: Counterparties}
+    { path: '/counterparties', name: 'counterparties', component: Counterparties },
 ];
 
 const router = createRouter({

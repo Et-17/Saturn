@@ -3,8 +3,6 @@ import RecentTransactionTable from "./RecentTransactionTable.vue";
 </script>
 
 <template>
-  <div class="page">
-    <span class="header">Recent Transactions</span>
-    <RecentTransactionTable />
-  </div>
+  <span class="header">Recent Transactions</span>
+  <RecentTransactionTable />
 </template>
