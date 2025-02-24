@@ -6,15 +6,26 @@ import { computed } from 'vue';
 import TransactionModal from '../TransactionModal.vue';
 import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 import ExportTransactions from '../ExportTransactions.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{
   account_uuid: UUID;
 }>();
 
 const account = computed(() => get_account(props.account_uuid))
+
+const router = useRouter();
+
+function go_back() {
+  router.back();
+}
 </script>
 
 <template>
+  <div class="page-top-bar">
+    <span class="header">Account</span>
+    <span class="back-button" @click="go_back">Back</span>
+  </div>
   <span class="information-header">Account: </span>
   <span class="information">{{ account.name }}</span>
   <br>

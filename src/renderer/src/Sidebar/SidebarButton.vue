@@ -6,11 +6,13 @@ defineProps<{
 </script>
 
 <template>
-  <div>
-    <RouterLink :to="{ name: routeName }" class="material-symbols-outlined" active-class="selected">
-      {{ iconName }}
-    </RouterLink>
-  </div>
+  <RouterLink v-slot="{navigate, isActive}" :to="{ name: routeName }" custom>
+    <div @click="navigate">
+      <span class="material-symbols-outlined" :class="{'selected': isActive}">
+        {{ iconName }}
+      </span>
+    </div>
+  </RouterLink>
 </template>
 
 <style lang="scss" scoped>
@@ -23,10 +25,7 @@ div {
   transition: transform $transition-speed;
 }
 
-a {
-  color: unset;
-  cursor: unset;
-  text-decoration: unset;
+span {
   font-size: $icon-size;
   user-select: none;
   transition: font-variation-settings $transition-speed;
