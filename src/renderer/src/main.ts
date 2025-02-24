@@ -28,7 +28,7 @@
 
 import { createApp } from 'vue';
 import App from './App.vue';
-import { createMemoryHistory as createWebHashHistory, createRouter } from 'vue-router';
+import { createWebHashHistory, createRouter } from 'vue-router';
 
 import AccountView from './Accounts/AccountView.vue';
 import AccountsTable from './Accounts/AccountsTable.vue';
