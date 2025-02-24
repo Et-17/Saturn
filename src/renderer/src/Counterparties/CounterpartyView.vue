@@ -6,15 +6,27 @@ import { computed } from 'vue';
 import TransactionModal from '../TransactionModal.vue';
 import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 import ExportTransactions from '../ExportTransactions.vue';
+import AccountNameTableCell from '../Accounts/AccountNameTableCell.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{
   counterparty_uuid: UUID;
 }>();
 
 const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
+
+const router = useRouter();
+
+function go_back() {
+  router.back();
+}
 </script>
 
 <template>
+  <div class="page-top-bar">
+    <span class="header">Counterparty</span>
+    <span class="back-button" @click="go_back">Back</span>
+  </div>
   <span class="information-header">Counterparty: </span>
   <span class="information">{{ counterparty.name }}</span>
   <br>
@@ -31,7 +43,7 @@ const counterparty = computed(() => get_counterparty(props.counterparty_uuid));
     </thead>
     <tbody>
       <tr v-for="transaction of counterparty.transactions">
-        <td>{{ get_account(get_transaction(transaction).account_id).name }}</td>
+        <AccountNameTableCell :uuid="get_transaction(transaction).account_id" :name="get_account(get_transaction(transaction).account_id).name" />
         <td class="align-right">{{ format_currency(get_transaction(transaction).amount) }}</td>
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
         <td>

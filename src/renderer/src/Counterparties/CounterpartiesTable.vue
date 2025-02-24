@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { counterparties, Counterparty, get_transaction, UUID } from '../account_management/ledger_state';
+import { counterparties, Counterparty, get_transaction } from '../account_management/ledger_state';
 import DeleteCounterpartyModal from '../DeleteModals/DeleteCounterpartyModal.vue';
 import { format_date } from '../readout_formatting/date';
 import CounterpartyModal from './CounterpartyModal.vue';
+import CounterpartyNameTableCell from './CounterpartyNameTableCell.vue';
 
 function get_last_transaction_time(counterparty: Counterparty): string {
   let lastIndex = counterparty.transactions.length;
@@ -12,13 +13,10 @@ function get_last_transaction_time(counterparty: Counterparty): string {
   let lastTransactionUUID = counterparty.transactions[lastIndex - 1];
   return format_date(get_transaction(lastTransactionUUID).timestamp);
 }
-
-defineEmits<{
-  openCounterparty: [uuid: UUID]
-}>();
 </script>
 
 <template>
+  <span class="header">Counterparties</span>
   <table>
     <thead>
       <tr>
@@ -29,11 +27,7 @@ defineEmits<{
     </thead>
     <tbody>
       <tr v-for="counterparty of counterparties">
-        <td @click="$emit('openCounterparty', counterparty[0])">
-          <span class="clickable">
-            {{ counterparty[1].name }}
-          </span>
-        </td>
+        <CounterpartyNameTableCell :name="counterparty[1].name" :uuid="counterparty[0]" />
         <td class="align-right">{{ counterparty[1].transactions.length }}</td>
         <td>{{ get_last_transaction_time(counterparty[1]) }}</td>
         <td>

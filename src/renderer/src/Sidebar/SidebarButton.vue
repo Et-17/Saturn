@@ -1,16 +1,18 @@
 <script setup lang="ts">
 defineProps<{
+  routeName: string,
   iconName: string,
-  selected: boolean
 }>();
 </script>
 
 <template>
-  <div>
-    <span class="material-symbols-outlined" :class="{ 'selected': selected }">
-      {{ iconName }}
-    </span>
-  </div>
+  <RouterLink v-slot="{navigate, isActive}" :to="{ name: routeName }" custom>
+    <div @click="navigate">
+      <span class="material-symbols-outlined" :class="{'selected': isActive}">
+        {{ iconName }}
+      </span>
+    </div>
+  </RouterLink>
 </template>
 
 <style lang="scss" scoped>
