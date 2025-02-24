@@ -6,6 +6,7 @@ import { computed } from 'vue';
 import TransactionModal from '../TransactionModal.vue';
 import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 import ExportTransactions from '../ExportTransactions.vue';
+import AccountNameTableCell from '../Accounts/AccountNameTableCell.vue';
 import { useRouter } from 'vue-router';
 
 const props = defineProps<{
@@ -42,7 +43,7 @@ function go_back() {
     </thead>
     <tbody>
       <tr v-for="transaction of counterparty.transactions">
-        <td>{{ get_account(get_transaction(transaction).account_id).name }}</td>
+        <AccountNameTableCell :uuid="get_transaction(transaction).account_id" :name="get_account(get_transaction(transaction).account_id).name" />
         <td class="align-right">{{ format_currency(get_transaction(transaction).amount) }}</td>
         <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
         <td>

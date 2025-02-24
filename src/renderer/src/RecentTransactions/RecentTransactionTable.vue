@@ -5,9 +5,12 @@ import { format_date } from '../readout_formatting/date';
 import TransactionModal from '../TransactionModal.vue';
 import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
 import ExportTransactions from '../ExportTransactions.vue';
+import AccountNameTableCell from '../Accounts/AccountNameTableCell.vue';
+import CounterpartyNameTableCell from '../Counterparties/CounterpartyNameTableCell.vue';
 </script>
 
 <template>
+  <span class="header">Recent Transactions</span>
   <table>
     <thead>
       <tr>
@@ -19,8 +22,8 @@ import ExportTransactions from '../ExportTransactions.vue';
     </thead>
     <tbody>
       <tr v-for="transaction of transactions">
-        <td>{{ get_account(transaction[1].account_id).name }}</td>
-        <td>{{ get_counterparty(transaction[1].counterparty_id).name }}</td>
+        <AccountNameTableCell :uuid="transaction[1].account_id" :name="get_account(transaction[1].account_id).name" />
+        <CounterpartyNameTableCell :uuid="transaction[1].counterparty_id" :name="get_counterparty(transaction[1].counterparty_id).name" />
         <td class="align-right">{{ format_currency(transaction[1].amount) }}</td>
         <td>{{ format_date(transaction[1].timestamp) }}</td>
         <td>

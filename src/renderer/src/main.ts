@@ -30,15 +30,15 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import { createMemoryHistory as createWebHashHistory, createRouter } from 'vue-router';
 
-import RecentTransactions from './RecentTransactions/RecentTransactions.vue';
 import AccountView from './Accounts/AccountView.vue';
 import AccountsTable from './Accounts/AccountsTable.vue';
 import CounterpartiesTable from './Counterparties/CounterpartiesTable.vue';
 import CounterpartyView from './Counterparties/CounterpartyView.vue';
+import RecentTransactionTable from './RecentTransactions/RecentTransactionTable.vue';
 
 const routes = [
     { path: '/', redirect: { name: 'recent-transactions' } },
-    { path: '/recent-transactions', name: 'recent-transactions', component: RecentTransactions },
+    { path: '/recent-transactions', name: 'recent-transactions', component: RecentTransactionTable },
     { path: '/accounts', name: 'accounts', component: AccountsTable },
     { path: '/account/:account_uuid', name: 'account', component: AccountView, props: true},
     { path: '/counterparties', name: 'counterparties', component: CounterpartiesTable },
