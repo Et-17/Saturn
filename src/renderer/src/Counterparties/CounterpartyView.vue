@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { format_date } from '../readout_formatting/date';
-import { format_currency } from '../readout_formatting/money';
-import { get_transaction, UUID, get_counterparty, get_account } from '../account_management/ledger_state';
+import { UUID, get_counterparty } from '../account_management/ledger_state';
 import { computed } from 'vue';
-import TransactionModal from '../TransactionModal.vue';
-import DeleteTransactionModal from '../DeleteModals/DeleteTransactionModal.vue';
-import ExportTransactions from '../ExportTransactions.vue';
-import AccountNameTableCell from '../Accounts/AccountNameTableCell.vue';
 import { useRouter } from 'vue-router';
+import TransactionTable from '../TransactionTable/TransactionTable.vue';
 
 const props = defineProps<{
   counterparty_uuid: UUID;
@@ -33,37 +28,7 @@ function go_back() {
   <span class="information-header">Description: </span>
   <span class="information">{{ counterparty.description ?? "None" }}</span>
   <br>
-  <table id="counterparty-view-transaction-table">
-    <thead>
-      <tr>
-        <th scope="col">Account</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Timestamp</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="transaction of counterparty.transactions">
-        <AccountNameTableCell :uuid="get_transaction(transaction).account_id" :name="get_account(get_transaction(transaction).account_id).name" />
-        <td class="align-right">{{ format_currency(get_transaction(transaction).amount) }}</td>
-        <td>{{ format_date(get_transaction(transaction).timestamp) }}</td>
-        <td>
-          <TransactionModal button-icon="edit" :transactionUuid="transaction" />
-        </td>
-        <td>
-          <DeleteTransactionModal button-icon="delete" :transaction-uuid="transaction" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <TransactionModal button-icon="add" :initialCounterpartyUuid="counterparty_uuid" />
-        </td>
-        <td v-for="_ in 3"></td>
-        <td>
-          <ExportTransactions button-icon="download" :transactions="counterparty.transactions" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <TransactionTable :transaction_uuids="counterparty.transactions" :hidden="['counterparty']" />
 </template>
 
 <style lang="scss" scoped>

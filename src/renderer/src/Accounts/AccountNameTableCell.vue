@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { UUID } from '../account_management/ledger_state';
+import { get_account, UUID } from '../account_management/ledger_state';
 
 defineProps<{
-  name: string,
   uuid: UUID
 }>();
 </script>
@@ -11,7 +10,7 @@ defineProps<{
   <td>
     <RouterLink :to="{ name: 'account', params: { account_uuid: uuid }}" v-slot="{navigate}" custom>
       <span @click="navigate" class="clickable">
-        {{ name }}
+        {{ get_account(uuid).name }}
       </span>
     </RouterLink>
   </td>

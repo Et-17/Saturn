@@ -20,7 +20,7 @@ import AccountNameTableCell from './AccountNameTableCell.vue';
     </thead>
     <tbody>
       <tr v-for="account of accounts">
-        <AccountNameTableCell :name="account[1].name" :uuid="account[0]" />
+        <AccountNameTableCell :uuid="account[0]" />
         <td class="align-right">{{ format_currency(account[1].balance) }}</td>
         <td class="align-right">{{ account[1].transactions.length }}</td>
         <td>{{ format_date(account[1].creation_timestamp) }}</td>

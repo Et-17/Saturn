@@ -27,7 +27,7 @@ function get_last_transaction_time(counterparty: Counterparty): string {
     </thead>
     <tbody>
       <tr v-for="counterparty of counterparties">
-        <CounterpartyNameTableCell :name="counterparty[1].name" :uuid="counterparty[0]" />
+        <CounterpartyNameTableCell :uuid="counterparty[0]" />
         <td class="align-right">{{ counterparty[1].transactions.length }}</td>
         <td>{{ get_last_transaction_time(counterparty[1]) }}</td>
         <td>
