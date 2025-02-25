@@ -7,17 +7,22 @@
 }
 
 :root {
-    --palette-background: #E0C87E;
-    --input-background: #E0D47E;
+    --palette-background: #303030;
+    --positive-color: #7EE090;
+    --selected-color: #E0C87E;
     --outer-gutter: 40px;
     --inner-gutter: 20px;
-    color: rgb(30, 30, 30);
+    --horizontal-rule-color: #AFAFAF;
+    --text-color: #E1E1E1;
+    color: var(--text-color);
 }
 
 // COLORS:
 // #E0BC7E
-// #E0D47E
+// #E0D47E Input
 // #E0C87E Background (analogous center)
 // #E0AD7E
 // #E0E07E
 // #E0DAC8 (lighter varient)
+
+// #7EE090 good green

@@ -87,9 +87,10 @@ span:not(.material-symbols-outlined) {
 
 input {
     @extend .information;
-    background-color: var(--input-background);
+    background-color: var(--palette-background);
+    border: 1px var(--horizontal-rule-color) solid;
+    color: var(--text-color);
     width: 60%;
-    border: unset;
     font-size: inherit;
 
     &:focus-visible {

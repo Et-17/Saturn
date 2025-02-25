@@ -97,7 +97,6 @@ function finish() {
     <br>
 
     <span class="input-label">Amount: </span>
-    <span class="unit">$</span>
     <input type="number" v-model="amount">
     <Error v-if="error_message != ''">{{ error_message }}</Error>
     <div class="spacing" v-if="error_message == ''"></div>
@@ -120,8 +119,9 @@ span:not(.material-symbols-outlined) {
 
 select {
   @extend .information;
-  background-color: var(--input-background);
-  border: unset;
+  background-color: var(--palette-background);
+  color: var(--text-color);
+  border: 1px var(--horizontal-rule-color) solid;
   font-size: inherit;
 
   &:focus-visible {
@@ -145,9 +145,11 @@ span.clickable:not(.material-symbols-outlined) {
   font-size: 1.25em;
 }
 
-.unit,
 input {
-  background-color: var(--input-background);
+  // background-color: var(--input-background);
+  background-color: var(--palette-background);
+  border: 1px var(--horizontal-rule-color) solid;
+  color: var(--text-color);
 }
 
 .input-label {

@@ -37,7 +37,7 @@
 
 .clickable:hover {
     text-decoration: underline;
-    text-decoration-color: rgb(30, 30, 30);
+    text-decoration-color: var(--text-color);
     text-decoration-thickness: 10%;
 }
 
@@ -50,6 +50,10 @@
     @extend .ibm-plex-serif;
     font-size: 1.5em;
     align-self: center;
+}
+
+.positive {
+    color: var(--positive-color);
 }
 
 // Page and subpage switch transitions

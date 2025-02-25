@@ -26,9 +26,11 @@ const visible_column_names = computed(() => visible_columns.value.map(([name, _]
 <template>
   <table>
     <thead>
-      <th scope="col" v-for="column in visible_columns">
-        {{ column[1] }}
-      </th>
+      <tr>
+        <th scope="col" v-for="column in visible_columns">
+          {{ column[1] }}
+        </th>
+      </tr>
     </thead>
     <tbody>
       <TransactionEntry v-for="uuid in transaction_uuids" :uuid="uuid" :columns="visible_column_names" />
@@ -36,7 +38,9 @@ const visible_column_names = computed(() => visible_columns.value.map(([name, _]
         <td>
           <TransactionModal button-icon="add" />
         </td>
-        <td v-for="_ in visible_column_names.length"></td>
+        <td v-for="_ in visible_column_names.length">
+          <span class="material-symbols-outlined"></span>
+        </td>
         <td>
           <ExportTransactions button-icon="download" :transactions="Array.from(transaction_uuids)" />
         </td>

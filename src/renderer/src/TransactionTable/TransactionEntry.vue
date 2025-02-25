@@ -20,7 +20,7 @@ const transaction = computed(() => get_transaction(props.uuid));
   <tr>
     <AccountNameTableCell v-if="columns.includes('account')" :uuid="transaction.account_id" />
     <CounterpartyNameTableCell v-if="columns.includes('counterparty')" :uuid="transaction.counterparty_id" />
-    <td class="align-right">{{ format_currency(transaction.amount) }}</td>
+    <td class="align-right" :class="{'positive': transaction.amount > 0}">{{ format_currency(transaction.amount) }}</td>
     <td>{{ format_date(transaction.timestamp) }}</td>
     <td>
       <TransactionModal button-icon="edit" :transaction-uuid="uuid" />

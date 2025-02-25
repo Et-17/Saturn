@@ -28,11 +28,12 @@ div {
 span {
   font-size: $icon-size;
   user-select: none;
-  transition: font-variation-settings $transition-speed;
+  transition: font-variation-settings $transition-speed, color $transition-speed;
   font-variation-settings: 'FILL' 0;
 
   &.selected {
     font-variation-settings: 'FILL' 1;
+    color: var(--selected-color);
   }
 
   div:hover>&:not(.selected) {

@@ -4,7 +4,7 @@ table {
     @extend .ibm-plex-serif;
     margin-inline-start: auto;
     margin-inline-end: auto;
-    width: 90%;
+    border-collapse: collapse;
 
     thead th {
         font-weight: 500;
@@ -12,20 +12,27 @@ table {
     }
 
     td:has(.material-symbols-outlined) {
-        padding: 0;
-        width: 0;
+        padding-inline-start: 0;
+        padding-inline-end: 0;
     }
 
     th:first-child,
     td:first-child {
-        width: fit-content;
+        padding-inline-start: 0;
     }
 
     th,
     td {
-        padding-inline-start: 10px;
-        padding-inline-end: 10px;
-        line-height: 175%;
+        @extend .ibm-plex-sans;
+        padding-inline-start: 1vw;
+        padding-inline-end: 1vw;
+        padding-block-start: 2vh;
+        padding-block-end: 2vh;
+    }
+
+    tr:not(:last-child) td {
+        border-bottom: 1px var(--horizontal-rule-color) solid;
+        border-top: 1px var(--horizontal-rule-color) solid;
     }
 
     span.material-symbols-outlined {
