@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 import Modal from './Modal.vue';
 import { accounts, counterparties, get_transaction, new_transaction, recalc_account_balance, save_ledger, Transaction, transactions, UUID } from './account_management/ledger_state';
 import Error from './Error.vue';
@@ -67,10 +67,12 @@ function finish() {
   active.value = false;
 }
 
+
+const tooltip = computed(() => props.transactionUuid == undefined ? "Add a new transaction" : "Edit this transaction")
 </script>
 
 <template>
-  <span class="material-symbols-outlined clickable" @click="active = true">
+  <span class="material-symbols-outlined clickable" @click="active = true" :title="tooltip">
     {{ buttonIcon }}
   </span>
   <Modal :active="active">

@@ -27,7 +27,7 @@ async function export_transactions_button() {
 </script>
 
 <template>
-  <span class="material-symbols-outlined clickable" @click="export_transactions_button">
+  <span class="material-symbols-outlined clickable" @click="export_transactions_button" title="Export this list of transactions">
     {{ buttonIcon }}
   </span>
 </template>

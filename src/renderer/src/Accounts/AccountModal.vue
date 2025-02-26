@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref, ref, toRaw } from 'vue';
+import { computed, Ref, ref, toRaw } from 'vue';
 import Modal from '../Modal.vue';
 import { Account, accounts, get_account, new_account, save_ledger, UUID } from '../account_management/ledger_state';
 import Error from '../Error.vue';
@@ -54,10 +54,13 @@ function finish() {
 
   active.value = false;
 }
+
+
+const tooltip = computed(() => props.accountUuid == undefined ? "Add a new account" : "Edit this account")
 </script>
 
 <template>
-  <span class="material-symbols-outlined clickable" @click="active = true">
+  <span class="material-symbols-outlined clickable" @click="active = true" :title="tooltip">
     {{ buttonIcon }}
   </span>
   <Modal :active="active">

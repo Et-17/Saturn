@@ -21,7 +21,7 @@ function remove() {
 </script>
 
 <template>
-  <span class="material-symbols-outlined clickable" @click="active = true">
+  <span class="material-symbols-outlined clickable" @click="active = true" title="Delete this counterparty">
     {{ buttonIcon }}
   </span>
   <Modal :active=active>

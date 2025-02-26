@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref, ref, toRaw } from 'vue';
+import { computed, Ref, ref, toRaw } from 'vue';
 import Modal from '../Modal.vue';
 import { Counterparty, counterparties, new_counterparty, UUID, save_ledger, get_counterparty } from '../account_management/ledger_state';
 import Error from '../Error.vue';
@@ -52,10 +52,13 @@ function finish() {
 
     active.value = false;
 }
+
+
+const tooltip = computed(() => props.counterpartyUuid == undefined ? "Add a new counterparty" : "Edit this counterparty");
 </script>
 
 <template>
-    <span class="material-symbols-outlined clickable" @click="active = true">
+    <span class="material-symbols-outlined clickable" @click="active = true" :tooltip="tooltip">
         {{ buttonIcon }}
     </span>
     <Modal :active="active">
