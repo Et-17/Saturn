@@ -4,6 +4,7 @@ import { UUID } from '../account_management/ledger_state';
 import TransactionEntry from './TransactionEntry.vue';
 import TransactionModal from '../TransactionModal.vue';
 import ExportTransactions from '../ExportTransactions.vue';
+import { vHelpText } from '../Help/help';
 
 const props = defineProps<{
   transaction_uuids: UUID[],
@@ -27,9 +28,14 @@ const visible_column_names = computed(() => visible_columns.value.map(([name, _]
   <table>
     <thead>
       <tr>
-        <th scope="col" v-for="column in visible_columns">
-          {{ column[1] }}
+        <th scope="col" v-if="visible_column_names.includes('account')" v-help-text="{id: 'account-header', text: 'The account involved in the transaction'}">
+          Account
         </th>
+        <th scope="col" v-if="visible_column_names.includes('counterparty')" v-help-text="{id: 'counterparty-header', text: 'The counterparty involved in the transaction'}">
+          Counterparty
+        </th>
+        <th scope="col" v-if="visible_column_names.includes('amount')">Amount</th>
+        <th scope="col" v-if="visible_column_names.includes('timestamp')">Date</th>
       </tr>
     </thead>
     <tbody>

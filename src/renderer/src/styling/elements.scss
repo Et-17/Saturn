@@ -24,10 +24,9 @@ table {
     th,
     td {
         @extend .ibm-plex-sans;
-        padding-inline-start: 1vw;
-        padding-inline-end: 1vw;
-        padding-block-start: 2vh;
-        padding-block-end: 2vh;
+        padding-inline-start: 20px;
+        padding-inline-end: 20px;
+        line-height: 400%;
     }
 
     tr:not(:last-child) td {

@@ -3,6 +3,7 @@ import { Ref, ref } from 'vue';
 import Modal from './Modal.vue';
 import { accounts, counterparties, get_transaction, new_transaction, recalc_account_balance, save_ledger, Transaction, transactions, UUID } from './account_management/ledger_state';
 import Error from './Error.vue';
+import { vHelpText } from './Help/help';
 
 const props = defineProps<{
   buttonIcon: string
